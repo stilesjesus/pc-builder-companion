@@ -1,0 +1,1756 @@
+[
+  {
+    "brand": "Noctua",
+    "model": "NH-D15 G2",
+    "price": 149.9,
+    "type": "Air",
+    "cooler_type": "Dual Tower",
+    "fan_size": "140 mm",
+    "fan_count": 2,
+    "height": 168,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 240,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "25 dBA",
+    "performance_tier": "extreme",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "8 heatpipe dual-tower design with two 140mm fans",
+      "Offset heatsink clears top PCIe slot",
+      "Further improved cooling vs original NH-D15",
+      "Handles ~240W in testing:contentReference[oaicite:0]{index=0}",
+      "Flagship air cooler rivaling 360mm AIO performance:contentReference[oaicite:1]{index=1}"
+    ],
+    "color_options": [
+      "brown",
+      "black"
+    ],
+    "release_date": "2024-07"
+  },
+  {
+    "brand": "Noctua",
+    "model": "NH-L12Sx77",
+    "price": 74.9,
+    "type": "Air",
+    "cooler_type": "Low-profile",
+    "fan_size": "120 mm (slim)",
+    "fan_count": 1,
+    "height": 77,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 130,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "23.9 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": false,
+      "rgb_builds": false
+    },
+    "features": [
+      "6 heatpipes in a 77mm tall top-flow design",
+      "Fan mounted below fins for direct exhaust upward",
+      "Improved RAM and VRM clearance over NH-L12S",
+      "Enhanced for high-end CPUs in SFF builds:contentReference[oaicite:2]{index=2}",
+      "Ideal for powerful small-form-factor systems"
+    ],
+    "color_options": [
+      "brown"
+    ],
+    "release_date": "2024-04"
+  },
+  {
+    "brand": "be quiet!",
+    "model": "Dark Rock Pro 5",
+    "price": 99.9,
+    "type": "Air",
+    "cooler_type": "Dual Tower",
+    "fan_size": "120 mm + 135 mm",
+    "fan_count": 2,
+    "height": 168,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 270,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA1150",
+      "LGA1151",
+      "LGA1155",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "23.3 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "7 heatpipe dual-tower heatsink with black ceramic coating",
+      "Silent Wings fans (120mm + 135mm) for near-inaudible operation",
+      "Switchable Quiet (1500rpm) and Performance (2000rpm) modes",
+      "270W TDP cooling capacity:contentReference[oaicite:3]{index=3}",
+      "Max noise only ~23 dBA at full speed:contentReference[oaicite:4]{index=4}"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2024-01"
+  },
+  {
+    "brand": "be quiet!",
+    "model": "Dark Rock Elite",
+    "price": 114.9,
+    "type": "Air",
+    "cooler_type": "Dual Tower",
+    "fan_size": "2 x 135 mm",
+    "fan_count": 2,
+    "height": 168,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 280,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA1150",
+      "LGA1151",
+      "LGA1155",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "25.8 dBA",
+    "performance_tier": "extreme",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Dual-tower cooler with ARGB top cover lighting",
+      "Two Silent Wings 135mm fans with height-adjustable front fan rail",
+      "Offers 280W TDP cooling for overclocked CPUs:contentReference[oaicite:5]{index=5}",
+      "Noise tops out at ~25.8 dBA at 100% PWM:contentReference[oaicite:6]{index=6}",
+      "Premium black design with RAM clearance cutouts"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2023-10"
+  },
+  {
+    "brand": "be quiet!",
+    "model": "Dark Rock 5",
+    "price": 89.9,
+    "type": "Air",
+    "cooler_type": "Single Tower",
+    "fan_size": "120 mm",
+    "fan_count": 1,
+    "height": 161,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 210,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA1150",
+      "LGA1151",
+      "LGA1155",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "29.8 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": false,
+      "rgb_builds": false
+    },
+    "features": [
+      "Compact single-tower heatsink with 6 heat pipes",
+      "Silent Wings 4 120mm PWM fan for nearly inaudible cooling",
+      "High RAM/VRM compatibility due to asymmetric design",
+      "210W TDP cooling performance:contentReference[oaicite:7]{index=7}",
+      "Only ~29.8 dBA at max fan speed:contentReference[oaicite:8]{index=8}"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2024-10"
+  },
+  {
+    "brand": "be quiet!",
+    "model": "Light Loop 360",
+    "price": 160.0,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "36 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "360mm ARGB liquid cooler with new high-performance pump",
+      "Illuminated pump block and 16-LED Light Wings fans",
+      "Improved jet plate and fin stack for better thermals",
+      "Ships in black or white editions:contentReference[oaicite:9]{index=9}",
+      "Launched Sept 2024 at $160 (black) / $165 (white) MSRP:contentReference[oaicite:10]{index=10}"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2024-09"
+  },
+  {
+    "brand": "be quiet!",
+    "model": "Light Loop 240",
+    "price": 135.0,
+    "type": "Liquid",
+    "cooler_type": "240mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 2,
+    "height": null,
+    "radiator_size": "240 mm",
+    "pump_rgb": true,
+    "tdp_rating": 250,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "34 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "240mm ARGB AIO with illuminated pump and fans",
+      "Same next-gen pump tech as 360mm variant",
+      "High cooling capacity in compact dual-fan format",
+      "Available in black or white (launch MSRP $130/$135):contentReference[oaicite:11]{index=11}",
+      "Perfect for RGB builds needing strong cooling in smaller cases"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2024-09"
+  },
+  {
+    "brand": "Corsair",
+    "model": "iCUE H150i Elite Capellix XT",
+    "price": 199.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "LGA2066",
+      "sTRX4",
+      "sTR4",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "36 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "360mm radiator with three AirGuide RGB fans",
+      "Capellix ultra-bright LED pump head (33 LEDs)",
+      "Zero RPM fan mode at low temperatures",
+      "Includes iCUE Commander Core for full software control",
+      "Proven to handle ~300W CPU load in tests:contentReference[oaicite:12]{index=12}"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-01"
+  },
+  {
+    "brand": "NZXT",
+    "model": "Kraken Elite 360",
+    "price": 249.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "36 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Custom NZXT Turbine pump – ~10% more cooling vs last gen:contentReference[oaicite:13]{index=13}",
+      "2.72-inch IPS LCD (640×640) with surround RGB ring:contentReference[oaicite:14]{index=14}",
+      "Three F Series RGB Core fans with Zero-RPM mode",
+      "Single-cable radiator hookup for clean wiring",
+      "Supports Intel & AMD mainstream sockets (AM5, LGA1700, etc.)"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2024-08"
+  },
+  {
+    "brand": "NZXT",
+    "model": "Kraken 280 RGB",
+    "price": 179.99,
+    "type": "Liquid",
+    "cooler_type": "280mm AIO",
+    "fan_size": "140 mm",
+    "fan_count": 2,
+    "height": null,
+    "radiator_size": "280 mm",
+    "pump_rgb": true,
+    "tdp_rating": 250,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "34 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "280mm AIO featuring infinity-mirror ARGB pump cap",
+      "Dual Aer P140 RGB fans for high airflow",
+      "CAM software control for fan/pump/RGB",
+      "New 7th-gen Asetek pump for reliable performance",
+      "Perfect balance of cooling and aesthetics for mid-tower builds"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2024-08"
+  },
+  {
+    "brand": "ARCTIC",
+    "model": "Liquid Freezer III 360 ARGB",
+    "price": 144.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "36 dBA",
+    "performance_tier": "extreme",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Thick 38mm radiator + VRM cooling fan on pump",
+      "Three P12 ARGB fans deliver strong cooling at low noise",
+      "Excellent price-to-performance – often top of charts",
+      "Charts-topping cooling performance:contentReference[oaicite:15]{index=15}",
+      "Offers one of the best 360mm thermal results available"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2024-01"
+  },
+  {
+    "brand": "ARCTIC",
+    "model": "Liquid Freezer III 280",
+    "price": 124.99,
+    "type": "Liquid",
+    "cooler_type": "280mm AIO",
+    "fan_size": "140 mm",
+    "fan_count": 2,
+    "height": null,
+    "radiator_size": "280 mm",
+    "pump_rgb": false,
+    "tdp_rating": 280,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "35 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "Compact 280mm version of Arctic’s LF III series",
+      "Two 140mm high-static pressure fans included",
+      "Integrated cable management in braided tubing",
+      "Quiet PWM pump with efficient cold plate design",
+      "Top-tier cooling for those who prefer no RGB lighting"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2025-06"
+  },
+  {
+    "brand": "Cooler Master",
+    "model": "Hyper 212 Halo Black",
+    "price": 39.99,
+    "type": "Air",
+    "cooler_type": "Single Tower",
+    "fan_size": "120 mm",
+    "fan_count": 1,
+    "height": 154,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 150,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "27 dBA",
+    "performance_tier": "budget",
+    "recommended_for": {
+      "budget_cpus": true,
+      "mid_range_cpus": true,
+      "high_end_cpus": false,
+      "overclocking": false,
+      "rgb_builds": true
+    },
+    "features": [
+      "Revamped Hyper 212 with Halo² ARGB 120mm fan",
+      "Direct contact 4-heatpipe base for efficient heat transfer",
+      "Compact 154mm height fits most ATX cases",
+      "Improved cooling performance over stock coolers",
+      "Budget-friendly cooler with stylish lighting"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-03"
+  },
+  {
+    "brand": "Cooler Master",
+    "model": "Hyper 622 Halo",
+    "price": 59.99,
+    "type": "Air",
+    "cooler_type": "Dual Tower",
+    "fan_size": "120 mm",
+    "fan_count": 2,
+    "height": 157,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 180,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "29 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Twin-tower Hyper series cooler with 6 heat pipes",
+      "Dual 120mm Halo² ARGB fans in push-pull",
+      "Offers high thermal performance in a shorter form factor",
+      "Easy installation with secure mounting system",
+      "ARGB lighting adds visual flair to the cooling prowess"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-06"
+  },
+  {
+    "brand": "Cooler Master",
+    "model": "MasterAir MA824 Stealth",
+    "price": 99.99,
+    "type": "Air",
+    "cooler_type": "Dual Tower",
+    "fan_size": "140 mm + 120 mm",
+    "fan_count": 2,
+    "height": 165,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 250,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "30 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "Flagship dual-tower with eight copper heat pipes",
+      "Dual SickleFlow fans (140mm + 120mm) in push-pull",
+      "Massive heatsink surface for extreme heat dissipation",
+      "Stealth black aesthetic with top cover",
+      "Rivals other top air coolers in performance and acoustics"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2023-07"
+  },
+  {
+    "brand": "Cooler Master",
+    "model": "MasterLiquid 360 Atmos",
+    "price": 169.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "34 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Next-gen AIO with innovative dual-chamber \"Atmos\" pump",
+      "Three Mobius series 120mm PWM fans included",
+      "ARGB lighting on pump and fans for stunning visuals",
+      "Enhanced cold plate and flow for improved cooling",
+      "High performance 360mm solution for enthusiasts"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2024-05"
+  },
+  {
+    "brand": "Cooler Master",
+    "model": "MasterLiquid 360 Ion",
+    "price": 249.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "35 dBA",
+    "performance_tier": "extreme",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": false,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Premium 360mm AIO with 2.1\" IPS LCD screen on pump:contentReference[oaicite:16]{index=16}",
+      "Includes three Mobius 120P ARGB fans for high airflow",
+      "Dual-chamber pump design for top cooling efficiency",
+      "Pre-installed fans and simplified bracket for easy setup",
+      "Combines flagship performance with showpiece customization"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2024-11"
+  },
+  {
+    "brand": "EK",
+    "model": "Nucleus CR360 Lux D-RGB",
+    "price": 199.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "33 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "High-end 360mm AIO co-designed by EK Water Blocks",
+      "Durable full-copper radiator and robust PWM pump",
+      "D-RGB lighting on pump block and Vardar fans",
+      "360° rotatable block cover for logo alignment",
+      "Awarded best overall cooler of 2023:contentReference[oaicite:17]{index=17}"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-05"
+  },
+  {
+    "brand": "EK",
+    "model": "Nucleus CR240 Dark",
+    "price": 139.99,
+    "type": "Liquid",
+    "cooler_type": "240mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 2,
+    "height": null,
+    "radiator_size": "240 mm",
+    "pump_rgb": false,
+    "tdp_rating": 200,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "32 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": false,
+      "rgb_builds": false
+    },
+    "features": [
+      "All-black 240mm AIO with zero RGB (Dark series)",
+      "EK-designed pump offers high flow and low noise",
+      "Includes two static-pressure fans (no lighting)",
+      "Ideal for stealth builds needing strong cooling",
+      "Solid performance and build quality from EK"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2023-04"
+  },
+  {
+    "brand": "DeepCool",
+    "model": "Assassin IV VC VISION",
+    "price": 129.99,
+    "type": "Air",
+    "cooler_type": "Dual Tower",
+    "fan_size": "140 mm + 120 mm",
+    "fan_count": 2,
+    "height": 172,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "32 dBA",
+    "performance_tier": "extreme",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "Dual-tower, seven heatpipes + vapor chamber base:contentReference[oaicite:18]{index=18}",
+      "Built-in segmented digital display for CPU stats:contentReference[oaicite:19]{index=19}",
+      "Switchable Quiet and Performance fan modes",
+      "300W TDP rating for extreme cooling needs:contentReference[oaicite:20]{index=20}",
+      "Relocatable 120mm fan to accommodate tall RAM"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2024-06"
+  },
+  {
+    "brand": "DeepCool",
+    "model": "AK620 Digital",
+    "price": 89.99,
+    "type": "Air",
+    "cooler_type": "Dual Tower",
+    "fan_size": "120 mm",
+    "fan_count": 2,
+    "height": 160,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 260,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "30 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "Premium dual-tower cooler with small LED info screen",
+      "Two FK120 PWM fans balance airflow and noise",
+      "Displays CPU temperature in real time on top",
+      "High 260W thermal capacity for heavy loads",
+      "Comes in black or white to match different builds"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-08"
+  },
+  {
+    "brand": "DeepCool",
+    "model": "AK400 Digital",
+    "price": 54.99,
+    "type": "Air",
+    "cooler_type": "Single Tower",
+    "fan_size": "120 mm",
+    "fan_count": 1,
+    "height": 155,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 180,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "29 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": true,
+      "mid_range_cpus": true,
+      "high_end_cpus": false,
+      "overclocking": false,
+      "rgb_builds": false
+    },
+    "features": [
+      "Single-tower 4-heatpipe cooler with LED status screen",
+      "Compact footprint fits most ATX and mATX builds",
+      "Displays CPU temp in real time on top panel",
+      "Quiet 120mm fluid dynamic bearing fan",
+      "Great value option for mainstream CPUs"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-08"
+  },
+  {
+    "brand": "DeepCool",
+    "model": "LQ360",
+    "price": 149.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "35 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "New DeepCool LQ series 360mm AIO with segment LCD screen:contentReference[oaicite:21]{index=21}",
+      "5th-gen high-efficiency pump (3400 RPM, 21 dB):contentReference[oaicite:22]{index=22}",
+      "Three FD12 ARGB PWM fans with six LEDs each:contentReference[oaicite:23]{index=23}",
+      "Improved microchannel cold plate for optimal heat transfer:contentReference[oaicite:24]{index=24}",
+      "Available in 240mm and 360mm sizes to suit different needs"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2024-06"
+  },
+  {
+    "brand": "Thermaltake",
+    "model": "Toughliquid Ultra 360",
+    "price": 229.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "LGA2066",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "34 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": false,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "360mm AIO with 2.1\" LCD screen displaying real-time info",
+      "High-speed three-phase pump and copper cold plate",
+      "Three high-static pressure fans for maximum cooling",
+      "Fully customizable display for GIFs and system monitoring",
+      "Designed for high-end builds needing both performance and flair"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2021-11"
+  },
+  {
+    "brand": "Thermaltake",
+    "model": "TH240 V2 ARGB",
+    "price": 89.99,
+    "type": "Liquid",
+    "cooler_type": "240mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 2,
+    "height": null,
+    "radiator_size": "240 mm",
+    "pump_rgb": true,
+    "tdp_rating": 180,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "32 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": true,
+      "mid_range_cpus": true,
+      "high_end_cpus": false,
+      "overclocking": false,
+      "rgb_builds": true
+    },
+    "features": [
+      "Affordable 240mm liquid cooler with ARGB lighting",
+      "Dual 120mm ARGB fans and ARGB CPU block sync with motherboard",
+      "Reliable low-profile pump design for continuous use",
+      "Ideal upgrade from stock coolers for moderate systems",
+      "Bright and colorful cooling without breaking the bank"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-01"
+  },
+  {
+    "brand": "Thermalright",
+    "model": "Grand Vision 360",
+    "price": 149.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "29.4 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "360mm ARGB AIO featuring an LCD display on the pump",
+      "Three optimized 120mm fans pre-installed on radiator",
+      "Top-tier cooling performance at lower cost than competitors",
+      "Noise-normalized results among the best available",
+      "Offered in sleek black or white to fit any build"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2024-01"
+  },
+  {
+    "brand": "Thermalright",
+    "model": "Phantom Spirit 120 SE",
+    "price": 36.99,
+    "type": "Air",
+    "cooler_type": "Dual Tower",
+    "fan_size": "120 mm",
+    "fan_count": 2,
+    "height": 154,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 200,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "25 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": true,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "Budget-friendly dual tower with 6 heat pipes",
+      "Two TL-C12 PWM fans for balanced cooling and noise",
+      "Short 154mm height fits many mid tower cases",
+      "Amazing price-to-performance for value seekers",
+      "Often rivals more expensive coolers in benchmarks"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2023-03"
+  },
+  {
+    "brand": "Lian Li",
+    "model": "Galahad II LCD 280",
+    "price": 229.99,
+    "type": "Liquid",
+    "cooler_type": "280mm AIO",
+    "fan_size": "140 mm",
+    "fan_count": 2,
+    "height": null,
+    "radiator_size": "280 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "30 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "280mm AIO with vibrant 2.9\" IPS LCD on pump",
+      "Low-noise 140mm fans deliver strong cooling quietly",
+      "Performance rivals larger 360mm units:contentReference[oaicite:25]{index=25}",
+      "Premium build with aluminum accents",
+      "Great choice for high-end builds where 360mm radiators can't fit"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-07"
+  },
+  {
+    "brand": "Lian Li",
+    "model": "Galahad II Trinity Performance 240",
+    "price": 119.99,
+    "type": "Liquid",
+    "cooler_type": "240mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 2,
+    "height": null,
+    "radiator_size": "240 mm",
+    "pump_rgb": true,
+    "tdp_rating": 250,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "30 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "High-performance 240mm AIO often matching 360mm coolers:contentReference[oaicite:26]{index=26}",
+      "Interchangeable pump caps (including infinity mirror)",
+      "Quiet operation and excellent thermal performance",
+      "Reasonably priced despite top-tier results",
+      "Ideal for space-limited builds that still demand elite cooling"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-08"
+  },
+  {
+    "brand": "ID-Cooling",
+    "model": "FX-360 ARGB",
+    "price": 79.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 240,
+    "socket_compatibility": [
+      "LGA1851",
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "44 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": true,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Budget 360mm AIO with infinity mirror ARGB pump design",
+      "Three ARGB PWM fans and ARGB pump block included",
+      "In testing, nearly matched the best coolers at a fraction of the cost:contentReference[oaicite:27]{index=27}",
+      "Surprisingly quiet under typical gaming loads:contentReference[oaicite:28]{index=28}",
+      "Excellent choice for value seekers who want 360mm performance"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2023-07"
+  },
+  {
+    "brand": "SilverStone",
+    "model": "IceMyst 360",
+    "price": 139.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 237,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "45 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Innovative 360mm AIO with optional stackable side fans for VRM/RAM cooling",
+      "Chart-topping noise-normalized performance (handled 237W at 38.2 dBA)",
+      "Includes three PWM fans and supports additional clip-on fans",
+      "Integrated refill port for easy maintenance",
+      "Great cooling flexibility for advanced users"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2023-09"
+  },
+  {
+    "brand": "ASUS",
+    "model": "ROG Ryujin III 360",
+    "price": 279.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4",
+      "LGA2066"
+    ],
+    "noise_level": "35 dBA",
+    "performance_tier": "extreme",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": false,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Flagship ROG AIO with 3.5\" full-color LCD display on the pump",
+      "Embedded fan in pump housing to cool VRM around socket",
+      "Three ROG 120mm fans (optimized by Noctua in some editions)",
+      "Fully customizable via Armoury Crate (GIFs, stats, etc.)",
+      "Ultimate blend of cooling performance and aesthetics for ROG enthusiasts"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-05"
+  },
+  {
+    "brand": "MSI",
+    "model": "MEG CoreLiquid S360",
+    "price": 249.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4",
+      "LGA2066"
+    ],
+    "noise_level": "34 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": false,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "High-end 360mm AIO with 2.4\" IPS LCD panel on pump",
+      "Includes three silent MAG Torx fans (no LED, focus on acoustics)",
+      "Built-in 60mm fan in block for VRM/M.2 cooling",
+      "MSI Center software allows custom displays and control",
+      "One of the quietest LCD-equipped coolers on the market"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2022-12"
+  },
+  {
+    "brand": "MSI",
+    "model": "MAG CoreLiquid C280",
+    "price": 119.99,
+    "type": "Liquid",
+    "cooler_type": "280mm AIO",
+    "fan_size": "140 mm",
+    "fan_count": 2,
+    "height": null,
+    "radiator_size": "280 mm",
+    "pump_rgb": true,
+    "tdp_rating": 250,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "33 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": false,
+      "rgb_builds": true
+    },
+    "features": [
+      "280mm ARGB AIO with ring-lit pump head and logo",
+      "Twin 140mm MSI ARGB fans for excellent airflow",
+      "Split-flow cold plate design ensures even cooling",
+      "Compatible with latest Intel and AMD sockets",
+      "Reliable mid-range cooler for gaming setups"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2022-11"
+  },
+  {
+    "brand": "Phanteks",
+    "model": "Glacier One 360 T30",
+    "price": 269.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm (30mm thick)",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 320,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "40 dBA",
+    "performance_tier": "extreme",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": false,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "Extreme-performance 360mm AIO with full-speed 3000 RPM fans",
+      "Three Phanteks T30-120 fans (30mm thick) for massive airflow",
+      "Infinity mirror ARGB pump cap offers subtle lighting",
+      "All-black, high-quality braided tubing and fittings",
+      "Delivers custom-loop levels of cooling in plug-and-play form"
+    ],
+    "color_options": [
+      "black",
+      "white"
+    ],
+    "release_date": "2023-01"
+  },
+  {
+    "brand": "Scythe",
+    "model": "Fuma 3",
+    "price": 59.99,
+    "type": "Air",
+    "cooler_type": "Dual Tower",
+    "fan_size": "120 mm",
+    "fan_count": 2,
+    "height": 154,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 250,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "26 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "High-performance twin-tower cooler succeeding the Fuma 2",
+      "Comes with two Scythe Kaze 120mm fans (one slim, one standard)",
+      "Offset design and low height (154mm) improve case compatibility",
+      "Excellent balance of cooling, acoustics, and price",
+      "Ideal for quiet yet powerful air-cooled PC builds"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2023-07"
+  },
+  {
+    "brand": "ARCTIC",
+    "model": "Freezer A35 A-RGB",
+    "price": 39.99,
+    "type": "Air",
+    "cooler_type": "Single Tower",
+    "fan_size": "120 mm",
+    "fan_count": 1,
+    "height": 158,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 170,
+    "socket_compatibility": [
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "27 dBA",
+    "performance_tier": "budget",
+    "recommended_for": {
+      "budget_cpus": true,
+      "mid_range_cpus": true,
+      "high_end_cpus": false,
+      "overclocking": false,
+      "rgb_builds": true
+    },
+    "features": [
+      "Single-tower 120mm cooler tailored for AMD AM4/AM5",
+      "Offset heat sink prevents interference with RAM modules",
+      "120mm ARGB fan provides good cooling and lighting",
+      "Easy installation with push-through pins and backplate",
+      "Solid choice to replace stock AMD coolers for better thermals"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2022-12"
+  },
+  {
+    "brand": "Zalman",
+    "model": "Reserator 5 Z36",
+    "price": 139.99,
+    "type": "Liquid",
+    "cooler_type": "360mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 3,
+    "height": null,
+    "radiator_size": "360 mm",
+    "pump_rgb": true,
+    "tdp_rating": 300,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "35 dBA",
+    "performance_tier": "high",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": true
+    },
+    "features": [
+      "Unique dual-pump 360mm AIO design for extra reliability",
+      "Includes three SF120 ARGB fans for cooling and visuals",
+      "ARGB lighting on pump and fans syncs with motherboard",
+      "Strong cooling performance with an eye-catching design",
+      "Great balance between performance, features, and price"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2022-02"
+  },
+  {
+    "brand": "be quiet!",
+    "model": "Pure Rock LP",
+    "price": 49.9,
+    "type": "Air",
+    "cooler_type": "Low-profile",
+    "fan_size": "92 mm",
+    "fan_count": 1,
+    "height": 45,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 100,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "30.6 dBA",
+    "performance_tier": "budget",
+    "recommended_for": {
+      "budget_cpus": true,
+      "mid_range_cpus": true,
+      "high_end_cpus": false,
+      "overclocking": false,
+      "rgb_builds": false
+    },
+    "features": [
+      "Ultra-low-profile 45mm cooler for mini-ITX and SFF builds",
+      "Compact 92mm Shadow Wings 2 fan for quiet operation",
+      "50W-100W class cooling ideal for small CPUs and APUs",
+      "Fits in extremely tight clearances (HTPC cases etc.)",
+      "A reliable quiet solution for compact, low-power systems"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2023-01"
+  },
+  {
+    "brand": "Corsair",
+    "model": "iCUE H60x RGB Elite",
+    "price": 79.99,
+    "type": "Liquid",
+    "cooler_type": "120mm AIO",
+    "fan_size": "120 mm",
+    "fan_count": 1,
+    "height": null,
+    "radiator_size": "120 mm",
+    "pump_rgb": true,
+    "tdp_rating": 140,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "30 dBA",
+    "performance_tier": "budget",
+    "recommended_for": {
+      "budget_cpus": true,
+      "mid_range_cpus": true,
+      "high_end_cpus": false,
+      "overclocking": false,
+      "rgb_builds": true
+    },
+    "features": [
+      "Compact 120mm AIO for ITX and small builds",
+      "One SP120 RGB Elite fan with AirGuide fins for focused airflow",
+      "Tool-free mounting bracket and pre-applied TIM for easy install",
+      "Zero RPM mode stops fan at idle for silent operation",
+      "Great for entry-level liquid cooling with a touch of RGB"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2023-07"
+  },
+  {
+    "brand": "Thermaltake",
+    "model": "ToughAir 510",
+    "price": 59.99,
+    "type": "Air",
+    "cooler_type": "Single Tower",
+    "fan_size": "120 mm",
+    "fan_count": 2,
+    "height": 158,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 180,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "23.6 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": true,
+      "rgb_builds": false
+    },
+    "features": [
+      "Dual-fan single-tower cooler with direct-touch heatpipes",
+      "Two 120mm fans in push/pull for increased airflow",
+      "Asymmetric fin stack avoids blocking memory slots",
+      "Quiet operation (under ~24 dBA at max RPM)",
+      "Reliable air cooling for gaming PCs and workstations"
+    ],
+    "color_options": [
+      "black"
+    ],
+    "release_date": "2021-12"
+  },
+  {
+    "brand": "Noctua",
+    "model": "NH-D12L",
+    "price": 89.95,
+    "type": "Air",
+    "cooler_type": "Dual Tower (Low-height)",
+    "fan_size": "120 mm",
+    "fan_count": 1,
+    "height": 145,
+    "radiator_size": null,
+    "pump_rgb": false,
+    "tdp_rating": 200,
+    "socket_compatibility": [
+      "LGA1700",
+      "LGA1200",
+      "LGA115x",
+      "AM5",
+      "AM4"
+    ],
+    "noise_level": "24.6 dBA",
+    "performance_tier": "mid",
+    "recommended_for": {
+      "budget_cpus": false,
+      "mid_range_cpus": true,
+      "high_end_cpus": true,
+      "overclocking": false,
+      "rgb_builds": false
+    },
+    "features": [
+      "Low-height (145mm) dual-tower cooler for 4U & compact builds",
+      "Five heatpipe design with a single NF-A12x25 PWM fan (room for second fan)",
+      "Offers high-end cooling in cases where 160mm+ coolers won't fit",
+      "SecuFirm2 mounting and NT-H2 paste included for easy installation",
+      "Noctua's renowned quiet performance and excellent compatibility"
+    ],
+    "color_options": [
+      "brown",
+      "black"
+    ],
+    "release_date": "2022-04"
+  },
+    {
+    "brand": "Cooler Master",
+    "model": "Hyper 212 Black Edition",
+    "price": 39.99,
+    "type": "Air",
+    "tdp_rating": 150,
+    "socket_compatibility": ["AM5", "AM4", "LGA1700", "LGA1200"],
+    "performance_tier": "budget",
+    "features": [
+      "4 heat pipes",
+      "120 mm PWM fan",
+      "Black-coated fins"
+    ],
+    "release_date": "2018-10"
+  },
+  {
+    "brand": "Corsair",
+    "model": "H60 Elite",
+    "price": 69.99,
+    "type": "AIO",
+    "tdp_rating": 250,
+    "socket_compatibility": ["AM5", "AM4", "LGA1700", "LGA1200"],
+    "performance_tier": "budget",
+    "features": [
+      "120 mm radiator",
+      "RGB pump head",
+      "Low-noise PWM fan"
+    ],
+    "release_date": "2022-05"
+  }
+]

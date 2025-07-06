@@ -1,0 +1,1157 @@
+[
+{
+"brand": "ASRock",
+"model": "Z790 Taichi Lite",
+"price": 350,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "E-ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-7200(OC)",
+"pci_e_slots": 2,
+"m2_slots": 4,
+"sata_ports": 8,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"Dual Thunderbolt 4",
+"24-phase SPS DrMOS",
+"60W USB PD 3.0"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2023-08"
+},
+{
+"brand": "MSI",
+"model": "MAG Z790 Tomahawk WiFi (DDR4)",
+"price": 230,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR4-5333(OC)",
+"pci_e_slots": 3,
+"m2_slots": 4,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"DDR4 support",
+"PCIe 5.0 (GPU)",
+"Turbo USB 3.2 Gen2x2"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2022-10"
+},
+{
+"brand": "ASUS",
+"model": "TUF Gaming B850-Plus WiFi",
+"price": 229,
+"socket": "AM5",
+"chipset": "B850",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6000(OC)",
+"pci_e_slots": 3,
+"m2_slots": 3,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"Hidden-connector (BTF) design",
+"AI Networking II",
+"14+2 DrMOS"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2025-06"
+},
+{
+"brand": "ASUS",
+"model": "ProArt X670E-Creator WiFi",
+"price": 470,
+"socket": "AM5",
+"chipset": "X670E",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6400(OC)",
+"pci_e_slots": 2,
+"m2_slots": 4,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 0,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "10GbE + 2.5GbE",
+"wifi": true,
+"rgb_header": false,
+"features": [
+"Dual Thunderbolt 4",
+"DisplayPort In",
+"ECC Memory Support"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": false,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2022-09"
+},
+{
+"brand": "ASUS",
+"model": "ROG Strix Z790-A Gaming WiFi II",
+"price": 360,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 192,
+"memory_type": "DDR5-7800(OC)",
+"pci_e_slots": 3,
+"m2_slots": 4,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"Wi-Fi 7",
+"PCIe 5.0 M.2",
+"AI Cooling II"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2023-11"
+},
+{
+"brand": "Gigabyte",
+"model": "X670E AORUS Xtreme",
+"price": 799,
+"socket": "AM5",
+"chipset": "X670E",
+"form_factor": "E-ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6666(OC)",
+"pci_e_slots": 2,
+"m2_slots": 4,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "10GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 slots",
+"OC Touch Panel",
+"18-phase 105A VRM"
+],
+"performance_tier": "enthusiast",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2022-09"
+},
+{
+"brand": "ASUS",
+"model": "Prime Z790-A WiFi",
+"price": 270,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-7200(OC)",
+"pci_e_slots": 3,
+"m2_slots": 4,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": false,
+"features": [
+"PCIe 5.0 (GPU)",
+"4x M.2 slots",
+"AEMP II memory profiles"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2022-10"
+},
+{
+"brand": "Gigabyte",
+"model": "Z790 AORUS Elite X WiFi7",
+"price": 280,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 192,
+"memory_type": "DDR5-7600(OC)",
+"pci_e_slots": 3,
+"m2_slots": 4,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 slot",
+"Wi-Fi 7",
+"Q-Flash Plus"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2023-11"
+},
+{
+"brand": "Gigabyte",
+"model": "B760 AORUS Elite AX",
+"price": 180,
+"socket": "LGA1700",
+"chipset": "B760",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-5600",
+"pci_e_slots": 3,
+"m2_slots": 3,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 x16",
+"EZ-Latch M.2",
+"8+1+1 Twin VRM"
+],
+"performance_tier": "budget",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": false
+},
+"release_date": "2023-01"
+},
+{
+"brand": "ASUS",
+"model": "TUF Gaming Z790-Pro WiFi",
+"price": 280,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-7200(OC)",
+"pci_e_slots": 3,
+"m2_slots": 4,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 x16",
+"DDR5 EXPO support",
+"USB-C 20Gbps front panel"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2023-11"
+},
+{
+"brand": "Gigabyte",
+"model": "X670E AORUS Master",
+"price": 500,
+"socket": "AM5",
+"chipset": "X670E",
+"form_factor": "E-ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6600(OC)",
+"pci_e_slots": 2,
+"m2_slots": 4,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 x16",
+"4× PCIe 5.0 M.2",
+"Twin 16+2+2 VRM"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2022-09"
+},
+{
+"brand": "MSI",
+"model": "PRO Z790-A WiFi",
+"price": 230,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-7000(OC)",
+"pci_e_slots": 3,
+"m2_slots": 4,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": false,
+"features": [
+"PCIe 5.0 x16",
+"EZ M.2 Clips",
+"Extended Heatsinks"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2022-10"
+},
+{
+"brand": "EVGA",
+"model": "Z790 DARK K|NGP|N",
+"price": 650,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "E-ATX",
+"memory_slots": 2,
+"max_memory_gb": 64,
+"memory_type": "DDR5-7600(OC)",
+"pci_e_slots": 2,
+"m2_slots": 4,
+"sata_ports": 8,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 1
+},
+"lan": "10GbE",
+"wifi": false,
+"rgb_header": false,
+"features": [
+"Optimized 2-DIMM design",
+"Triple BIOS",
+"Extreme OC connectors"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2023-02"
+},
+{
+"brand": "Gigabyte",
+"model": "B650 AERO G",
+"price": 260,
+"socket": "AM5",
+"chipset": "B650",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6000(OC)",
+"pci_e_slots": 3,
+"m2_slots": 3,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 0,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": false,
+"features": [
+"VisionLINK USB-C",
+"PCIe 5.0 M.2",
+"Creator focused BIOS"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": false,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2022-10"
+},
+{
+"brand": "ASUS",
+"model": "ROG Strix B650E-E Gaming WiFi",
+"price": 330,
+"socket": "AM5",
+"chipset": "B650E",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6400(OC)",
+"pci_e_slots": 3,
+"m2_slots": 3,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 x16",
+"Gen5 M.2 slot",
+"12+2 teamed power stages"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2022-10"
+},
+{
+"brand": "MSI",
+"model": "MAG B760 Tomahawk WiFi",
+"price": 200,
+"socket": "LGA1700",
+"chipset": "B760",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-5600",
+"pci_e_slots": 3,
+"m2_slots": 3,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 GPU slot",
+"6-layer PCB",
+"Extended heatsinks"
+],
+"performance_tier": "budget",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": false
+},
+"release_date": "2023-01"
+},
+{
+"brand": "ASRock",
+"model": "Phantom Gaming B850I Lightning WiFi",
+"price": 220,
+"socket": "AM5",
+"chipset": "B850",
+"form_factor": "Mini-ITX",
+"memory_slots": 2,
+"max_memory_gb": 96,
+"memory_type": "DDR5-5600(OC)",
+"pci_e_slots": 1,
+"m2_slots": 2,
+"sata_ports": 2,
+"usb_ports": {
+"usb2": 0,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": false,
+"features": [
+"120W CPU support",
+"USB 3.2 Gen2x2",
+"10-layer PCB"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2025-05"
+},
+{
+"brand": "MSI",
+"model": "MEG Z790 ACE Max",
+"price": 700,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "E-ATX",
+"memory_slots": 4,
+"max_memory_gb": 192,
+"memory_type": "DDR5-7800(OC)",
+"pci_e_slots": 2,
+"m2_slots": 5,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "10GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 GPU/M.2",
+"Dual Thunderbolt 4",
+"22+1+2 VRM"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2023-12"
+},
+{
+"brand": "MSI",
+"model": "MAG X870E Tomahawk WiFi",
+"price": 300,
+"socket": "AM5",
+"chipset": "X870E",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 192,
+"memory_type": "DDR5-6400(OC)",
+"pci_e_slots": 3,
+"m2_slots": 4,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 1
+},
+"lan": "5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"USB4 20Gbps",
+"Dual PCIe 5.0 M.2",
+"14+2+1 VRM"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2025-03"
+},
+{
+"brand": "Gigabyte",
+"model": "A620I AX",
+"price": 170,
+"socket": "AM5",
+"chipset": "A620",
+"form_factor": "Mini-ITX",
+"memory_slots": 2,
+"max_memory_gb": 64,
+"memory_type": "DDR5-6000(OC)",
+"pci_e_slots": 1,
+"m2_slots": 2,
+"sata_ports": 2,
+"usb_ports": {
+"usb2": 2,
+"usb3": 4,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": false,
+"features": [
+"PCIe 4.0 x16",
+"Budget ITX design",
+"8+2+1 VRM"
+],
+"performance_tier": "budget",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": false
+},
+"release_date": "2023-04"
+},
+{
+"brand": "Biostar",
+"model": "X870E Valkyrie",
+"price": 450,
+"socket": "AM5",
+"chipset": "X870E",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6800(OC)",
+"pci_e_slots": 3,
+"m2_slots": 4,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"Thunderbolt 4",
+"Dr. MOS 20-phase",
+"HDMI 2.1 output"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2025-06"
+},
+{
+"brand": "ASRock",
+"model": "Phantom Gaming B850 Riptide WiFi",
+"price": 210,
+"socket": "AM5",
+"chipset": "B850",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 192,
+"memory_type": "DDR5-6000(OC)",
+"pci_e_slots": 3,
+"m2_slots": 3,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"X3D Boost Mode",
+"8-layer PCB",
+"14-phase DrMOS"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2025-06"
+},
+{
+"brand": "ASUS",
+"model": "TUF Gaming B760-Plus WiFi",
+"price": 170,
+"socket": "LGA1700",
+"chipset": "B760",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-5600",
+"pci_e_slots": 3,
+"m2_slots": 3,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 x16 (locked CPU)",
+"Gen 4 M.2 support",
+"8+1 DrMOS"
+],
+"performance_tier": "budget",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": false
+},
+"release_date": "2023-01"
+},
+{
+"brand": "ASUS",
+"model": "ROG Maximus Z790 Dark Hero",
+"price": 700,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 192,
+"memory_type": "DDR5-8000(OC)",
+"pci_e_slots": 2,
+"m2_slots": 5,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 x16",
+"5x M.2 slots",
+"Dual Thunderbolt 4"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2023-12"
+},
+{
+"brand": "Gigabyte",
+"model": "Z790 AORUS Master X",
+"price": 530,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "E-ATX",
+"memory_slots": 4,
+"max_memory_gb": 192,
+"memory_type": "DDR5-8000(OC)",
+"pci_e_slots": 3,
+"m2_slots": 5,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "10GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 GPU/M.2",
+"10Gb + 2.5Gb LAN",
+"Thermal Armor"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2023-12"
+},
+{
+"brand": "MSI",
+"model": "MAG B850 Tomahawk Max WiFi",
+"price": 230,
+"socket": "AM5",
+"chipset": "B850",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 192,
+"memory_type": "DDR5-6000(OC)",
+"pci_e_slots": 3,
+"m2_slots": 3,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 M.2 (x2)",
+"Wi-Fi 7",
+"VRM heatsink armor"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2025-02"
+},
+{
+"brand": "ASRock",
+"model": "X670E Taichi",
+"price": 499,
+"socket": "AM5",
+"chipset": "X670E",
+"form_factor": "E-ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6600(OC)",
+"pci_e_slots": 2,
+"m2_slots": 4,
+"sata_ports": 8,
+"usb_ports": {
+"usb2": 0,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 slots",
+"Thunderbolt 4",
+"24+2 phase VRM"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2022-09"
+},
+{
+"brand": "ASUS",
+"model": "ROG Crosshair X670E Extreme",
+"price": 999,
+"socket": "AM5",
+"chipset": "X670E",
+"form_factor": "E-ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6600(OC)",
+"pci_e_slots": 2,
+"m2_slots": 5,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 0,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "10GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"Dual Thunderbolt 4",
+"5x M.2 (ROG DIMM.2)",
+"24+2 phase VRM"
+],
+"performance_tier": "enthusiast",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2022-09"
+},
+{
+"brand": "MSI",
+"model": "MEG X670E Godlike",
+"price": 1299,
+"socket": "AM5",
+"chipset": "X670E",
+"form_factor": "E-ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6666(OC)",
+"pci_e_slots": 2,
+"m2_slots": 6,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 4,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "10GbE + 2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"M-Vision LCD Panel",
+"PCIe 5.0 slots",
+"Direct 24+2 VRM"
+],
+"performance_tier": "enthusiast",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2022-09"
+},
+{
+"brand": "MSI",
+"model": "MAG B650M Mortar WiFi",
+"price": 240,
+"socket": "AM5",
+"chipset": "B650",
+"form_factor": "Micro-ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6200(OC)",
+"pci_e_slots": 2,
+"m2_slots": 2,
+"sata_ports": 4,
+"usb_ports": {
+"usb2": 2,
+"usb3": 6,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 4.0 x16",
+"6-layer PCB",
+"Flash BIOS Button"
+],
+"performance_tier": "mid",
+"recommended_for": {
+"budget_builds": true,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2022-10"
+},
+{
+"brand": "ASUS",
+"model": "ROG Crosshair X670E Hero",
+"price": 700,
+"socket": "AM5",
+"chipset": "X670E",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6400(OC)",
+"pci_e_slots": 2,
+"m2_slots": 4,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 M.2",
+"USB4 ports",
+"18+2 phase VRM"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2022-09"
+},
+{
+"brand": "Biostar",
+"model": "X670E Valkyrie",
+"price": 400,
+"socket": "AM5",
+"chipset": "X670E",
+"form_factor": "ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6000(OC)",
+"pci_e_slots": 3,
+"m2_slots": 4,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 1
+},
+"lan": "2.5GbE",
+"wifi": true,
+"rgb_header": true,
+"features": [
+"PCIe 5.0 GPU/M.2",
+"105A SPS VRM",
+"RGB LED Rock Zone"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": false,
+"overclocking": true
+},
+"release_date": "2022-10"
+},
+{
+"brand": "EVGA",
+"model": "Z790 Classified",
+"price": 700,
+"socket": "LGA1700",
+"chipset": "Z790",
+"form_factor": "E-ATX",
+"memory_slots": 4,
+"max_memory_gb": 128,
+"memory_type": "DDR5-6800(OC)",
+"pci_e_slots": 2,
+"m2_slots": 3,
+"sata_ports": 6,
+"usb_ports": {
+"usb2": 2,
+"usb3": 8,
+"usb_c": 2
+},
+"lan": "10GbE",
+"wifi": false,
+"rgb_header": false,
+"features": [
+"PCIe 5.0 x16",
+"USB4 40Gbps ports",
+"19-phase VRM"
+],
+"performance_tier": "high",
+"recommended_for": {
+"budget_builds": false,
+"gaming_builds": true,
+"workstation_builds": true,
+"overclocking": true
+},
+"release_date": "2023-01"
+}
+]

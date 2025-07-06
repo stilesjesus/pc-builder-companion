@@ -1,0 +1,4129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Builder Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.6s ease;
+        }
+
+        body.wizard-mode {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 10px;
+        }
+
+        .nav-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-button.active {
+            background: white;
+            color: #5a4037;
+            border-color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Page Containers */
+        .page {
+            display: none;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Learning Mode Styles */
+        .learning-container {
+            text-align: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .progress-indicator {
+            background: rgba(255, 255, 255, 0.2);
+            height: 4px;
+            border-radius: 2px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: white;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.8s ease;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .component-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .component-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+
+        .component-card.learned {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid #4CAF50;
+        }
+
+        .component-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .component-icon {
+            font-size: 3rem;
+            margin-right: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .component-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .component-subtitle {
+            font-size: 1rem;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .component-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
+        .component-examples {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .examples-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6c757d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .examples-text {
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #4CAF50;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .component-card.learned .checkmark {
+            opacity: 1;
+        }
+
+        .completion-message {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            text-align: center;
+        }
+
+        .completion-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Wizard Mode Styles */
+        .wizard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .wizard-header {
+            margin-bottom: 40px;
+            color: #5a4037;
+        }
+
+        .wizard-container .logo {
+            color: #8b5a3c;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .wizard-container .main-title {
+            color: #5a4037;
+        }
+
+        .wizard-container .subtitle {
+            color: #8b5a3c;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .wizard-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .question {
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .question.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .question-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #5a4037;
+            margin-right: 15px;
+        }
+
+        .question-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #5a4037;
+            margin-bottom: 25px;
+            display: inline;
+        }
+
+        .dynamic-hint {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px 16px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #1565c0;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .dynamic-hint.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .option-card {
+            background: #f8f4f0;
+            border: 3px solid transparent;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: #ff9a76;
+        }
+
+        .option-card.selected {
+            background: #ff9a76;
+            color: white;
+            border-color: #ff9a76;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 154, 118, 0.3);
+        }
+
+        .option-card.disabled {
+            background: #e0e0e0;
+            color: #999;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .option-card.disabled:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: transparent;
+        }
+
+        .option-icon {
+            font-size: 1.8rem;
+            margin-right: 12px;
+        }
+
+        .option-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: inline;
+        }
+
+        .option-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #4caf50;
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .warning-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ff5722;
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .build-preview {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .build-preview.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .build-preview h3 {
+            color: #5a4037;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .build-preview ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .build-preview li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+
+        .build-preview li:last-child {
+            border-bottom: none;
+        }
+
+        .build-preview .price-range {
+            font-weight: 600;
+            color: #ff6b35;
+            font-size: 1.1rem;
+        }
+
+        /* Component Selection Page Styles */
+        .components-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .components-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #5a4037;
+        }
+
+        .build-overview {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .overview-card h3 {
+            color: #5a4037;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .profile-item {
+            background: #f8f9fa;
+            padding: 12px 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .profile-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .profile-value {
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .component-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h3 {
+            color: #5a4037;
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .info-button {
+            background: #e3f2fd;
+            color: #1976d2;
+            border: none;
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .info-button:hover {
+            background: #bbdefb;
+            transform: translateY(-1px);
+        }
+
+        .requirement-note {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #e65100;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .component-option {
+            background: #f8f9fa;
+            border: 3px solid transparent;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .component-option:hover {
+            border-color: #ff9a76;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .component-option.selected {
+            background: #ff9a76;
+            color: white;
+            border-color: #ff9a76;
+            box-shadow: 0 8px 20px rgba(255, 154, 118, 0.3);
+        }
+
+        .component-option.selected .component-name,
+        .component-option.selected .component-specs,
+        .component-option.selected .component-price {
+            color: white !important;
+        }
+
+        .component-option.recommended:not(.selected) {
+            border-color: #4caf50;
+            background: #f1f8e9;
+        }
+
+        .component-option.recommended:not(.selected)::before {
+            content: "RECOMMENDED";
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #4caf50;
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .component-option.selected::before {
+            content: "Selected";
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #2e7d32;
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .component-option.recommended.selected::before {
+            content: "Selected";
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #4caf50;
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        /* Component Filter Buttons */
+        .component-filter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 154, 118, 0.2);
+        }
+
+        .filter-button {
+            background: rgba(255, 255, 255, 0.8);
+            color: #5a4037;
+            border: 2px solid rgba(255, 154, 118, 0.3);
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-button:hover {
+            background: rgba(255, 154, 118, 0.1);
+            border-color: #ff9a76;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-button.active {
+            background: linear-gradient(135deg, #ff9a76 0%, #ff6b35 100%);
+            color: white;
+            border-color: #ff6b35;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+
+        .filter-button.active:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+        }
+
+        .component-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .component-option.selected .component-name {
+            color: white;
+        }
+
+        .component-specs {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .component-option.selected .component-specs {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .component-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ff6b35;
+            text-align: right;
+        }
+
+        .component-option.selected .component-price {
+            color: white;
+        }
+
+        .final-summary {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .final-summary h3 {
+            color: #5a4037;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .selected-components {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .selected-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .selected-item:last-child {
+            border-bottom: none;
+        }
+
+        .build-totals {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .total-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff6b35;
+        }
+
+        .estimated-performance {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .finalize-button {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .finalize-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h3 {
+            color: #5a4037;
+            margin: 0;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-button:hover {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 25px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .no-components {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-style: italic;
+            background: #f5f5f5;
+            border-radius: 12px;
+            border: 2px dashed #ddd;
+        }
+
+        .loading-indicator {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            background: #f0f8ff;
+            border-radius: 12px;
+            border: 2px solid #e3f2fd;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2196f3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .ready-button, .submit-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.3);
+            margin-top: 20px;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #ff9a76 0%, #ff6b35 100%);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .ready-button:hover, .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(238, 90, 36, 0.4);
+        }
+
+        .submit-button:hover {
+            box-shadow: 0 12px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .ready-button:disabled, .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .ready-button.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .component-card {
+                padding: 25px;
+            }
+            
+            .component-icon {
+                font-size: 2.5rem;
+                margin-right: 15px;
+            }
+
+            .wizard-content {
+                padding: 25px;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .budget-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .components-container {
+                max-width: 100%;
+            }
+
+            .profile-details {
+                grid-template-columns: 1fr;
+            }
+
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .component-filter {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .component-filter label {
+                margin-bottom: 5px;
+            }
+
+            .build-totals {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .budget-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <div class="nav-bar">
+            <button class="nav-button active" onclick="showPage('learning')" id="learningBtn">
+                🎓 Learn the Basics
+            </button>
+            <button class="nav-button" onclick="showPage('wizard')" id="wizardBtn">
+                🛠️ Build My PC
+            </button>
+            <button class="nav-button" onclick="showPage('components')" id="componentsBtn" style="display: none;">
+                🎯 My Recommendations
+            </button>
+        </div>
+
+        <!-- Learning Mode Page -->
+        <div id="learningPage" class="page active">
+            <div class="learning-container">
+                <div class="header fade-in">
+                    <div class="logo">PC Builder Companion</div>
+                    <h1 class="main-title">🎓 Learn the Basics</h1>
+                    <p class="subtitle">Understanding your PC's parts makes building so much easier!</p>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+
+                <div id="completionMessage" class="completion-message">
+                    <h3 style="color: #27ae60; margin-bottom: 10px;">🎉 Nice work! You're ready to build!</h3>
+                    <p style="color: #2c3e50; font-size: 1.1rem;">Now that you understand the basics, let's find the perfect parts for your needs.</p>
+                </div>
+
+                <div class="components-grid">
+                    <!-- CPU -->
+                    <div class="component-card fade-in" data-component="cpu">
+                        <div class="checkmark">✓</div>
+                        <div class="component-header">
+                            <div class="component-icon">🧠</div>
+                            <div>
+                                <div class="component-name">CPU</div>
+                                <div class="component-subtitle">The Brain</div>
+                            </div>
+                        </div>
+                        <div class="component-description">
+                            The CPU is your PC's brain — it handles instructions and controls what happens inside your computer. It does all the thinking and calculating that makes your programs run.
+                        </div>
+                        <div class="component-examples">
+                            <div class="examples-title">Think of it like:</div>
+                            <div class="examples-text">The conductor of an orchestra, coordinating all the musicians (other parts) to create beautiful music (your programs running smoothly).</div>
+                        </div>
+                    </div>
+
+                    <!-- GPU -->
+                    <div class="component-card fade-in" data-component="gpu" style="animation-delay: 0.1s">
+                        <div class="checkmark">✓</div>
+                        <div class="component-header">
+                            <div class="component-icon">🎨</div>
+                            <div>
+                                <div class="component-name">GPU</div>
+                                <div class="component-subtitle">The Artist</div>
+                            </div>
+                        </div>
+                        <div class="component-description">
+                            The GPU (graphics card) is your computer's artist. It creates all the images, videos, and animations you see on your screen. Essential for gaming and video editing!
+                        </div>
+                        <div class="component-examples">
+                            <div class="examples-title">Think of it like:</div>
+                            <div class="examples-text">A specialized painter who can draw thousands of detailed pictures per second to create smooth motion on your screen.</div>
+                        </div>
+                    </div>
+
+                    <!-- RAM -->
+                    <div class="component-card fade-in" data-component="ram" style="animation-delay: 0.2s">
+                        <div class="checkmark">✓</div>
+                        <div class="component-header">
+                            <div class="component-icon">⚡</div>
+                            <div>
+                                <div class="component-name">RAM</div>
+                                <div class="component-subtitle">The Quick Memory</div>
+                            </div>
+                        </div>
+                        <div class="component-description">
+                            RAM is your computer's short-term memory. It temporarily holds information your CPU needs right now, allowing for lightning-fast access to your active programs.
+                        </div>
+                        <div class="component-examples">
+                            <div class="examples-title">Think of it like:</div>
+                            <div class="examples-text">Your desk workspace — the bigger your desk, the more projects you can spread out and work on at the same time.</div>
+                        </div>
+                    </div>
+
+                    <!-- Storage -->
+                    <div class="component-card fade-in" data-component="storage" style="animation-delay: 0.3s">
+                        <div class="checkmark">✓</div>
+                        <div class="component-header">
+                            <div class="component-icon">💾</div>
+                            <div>
+                                <div class="component-name">Storage</div>
+                                <div class="component-subtitle">The Library</div>
+                            </div>
+                        </div>
+                        <div class="component-description">
+                            Storage keeps all your files, photos, games, and programs safe permanently. SSDs are faster but more expensive, while hard drives offer more space for less money.
+                        </div>
+                        <div class="component-examples">
+                            <div class="examples-title">Think of it like:</div>
+                            <div class="examples-text">A library where you store all your books (files) — SSDs are like having books right next to you, HDDs are like having a huge basement full of books.</div>
+                        </div>
+                    </div>
+
+                    <!-- Motherboard -->
+                    <div class="component-card fade-in" data-component="motherboard" style="animation-delay: 0.4s">
+                        <div class="checkmark">✓</div>
+                        <div class="component-header">
+                            <div class="component-icon">🌐</div>
+                            <div>
+                                <div class="component-name">Motherboard</div>
+                                <div class="component-subtitle">The Connector</div>
+                            </div>
+                        </div>
+                        <div class="component-description">
+                            The motherboard is like your computer's nervous system. It connects all the parts together and lets them communicate with each other through electrical pathways.
+                        </div>
+                        <div class="component-examples">
+                            <div class="examples-title">Think of it like:</div>
+                            <div class="examples-text">The foundation of a house with all the electrical wiring — everything plugs into it to work together as one system.</div>
+                        </div>
+                    </div>
+
+                    <!-- PSU -->
+                    <div class="component-card fade-in" data-component="psu" style="animation-delay: 0.5s">
+                        <div class="checkmark">✓</div>
+                        <div class="component-header">
+                            <div class="component-icon">🔌</div>
+                            <div>
+                                <div class="component-name">PSU</div>
+                                <div class="component-subtitle">The Power Plant</div>
+                            </div>
+                        </div>
+                        <div class="component-description">
+                            The PSU (power supply) converts electricity from your wall outlet into the specific power each component needs. It's the energy source that keeps everything running.
+                        </div>
+                        <div class="component-examples">
+                            <div class="examples-title">Think of it like:</div>
+                            <div class="examples-text">A power plant that takes raw electricity and distributes just the right amount to each neighborhood (component) in your city (computer).</div>
+                        </div>
+                    </div>
+
+                    <!-- Case -->
+                    <div class="component-card fade-in" data-component="case" style="animation-delay: 0.6s">
+                        <div class="checkmark">✓</div>
+                        <div class="component-header">
+                            <div class="component-icon">🏠</div>
+                            <div>
+                                <div class="component-name">Case</div>
+                                <div class="component-subtitle">The Home</div>
+                            </div>
+                        </div>
+                        <div class="component-description">
+                            The case is your components' home. It protects everything inside, provides airflow to keep things cool, and gives you ports to plug in your devices.
+                        </div>
+                        <div class="component-examples">
+                            <div class="examples-title">Think of it like:</div>
+                            <div class="examples-text">A house that protects your family (components), has windows for light (airflow), and a front door with a mailbox (USB ports).</div>
+                        </div>
+                    </div>
+
+                    <!-- CPU Cooler -->
+                    <div class="component-card fade-in" data-component="cooler" style="animation-delay: 0.7s">
+                        <div class="checkmark">✓</div>
+                        <div class="component-header">
+                            <div class="component-icon">❄️</div>
+                            <div>
+                                <div class="component-name">CPU Cooler</div>
+                                <div class="component-subtitle">The Air Conditioner</div>
+                            </div>
+                        </div>
+                        <div class="component-description">
+                            The CPU cooler keeps your processor from overheating. CPUs get hot when working hard, so a good cooler with fans or liquid helps maintain safe temperatures.
+                        </div>
+                        <div class="component-examples">
+                            <div class="examples-title">Think of it like:</div>
+                            <div class="examples-text">An air conditioner for your brain — when you think really hard, you get hot, so you need something to cool you down!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <button class="ready-button" id="readyButton">
+                        <span id="buttonText">📚 Click each component to learn about it!</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wizard Page -->
+        <div id="wizardPage" class="page">
+            <div class="wizard-container">
+                <div class="wizard-header fade-in">
+                    <div class="logo">PC Builder Companion</div>
+                    <h1 class="main-title">
+                        <span class="brain-emoji">🧠</span>Let's Build Your Perfect PC
+                    </h1>
+                    <p class="subtitle">Answer a few questions so we can recommend the best parts for you.</p>
+                </div>
+
+                <div class="wizard-content fade-in">
+                    <!-- Question 1: Usage -->
+                    <div class="question" id="question1">
+                        <span class="question-number">1</span>
+                        <span class="question-title">What will you use your PC for?</span>
+                        <div class="options-grid">
+                            <div class="option-card" data-question="usage" data-value="gaming">
+                                <span class="option-icon">🎮</span>
+                                <span class="option-text">Gaming</span>
+                                <span class="option-subtitle">Play the latest games smoothly</span>
+                            </div>
+                            <div class="option-card" data-question="usage" data-value="streaming">
+                                <span class="option-icon">🎬</span>
+                                <span class="option-text">Streaming</span>
+                                <span class="option-subtitle">Gaming + broadcasting to viewers</span>
+                            </div>
+                            <div class="option-card" data-question="usage" data-value="workstation">
+                                <span class="option-icon">🏢</span>
+                                <span class="option-text">Workstation</span>
+                                <span class="option-subtitle">Video editing, 3D rendering, productivity</span>
+                            </div>
+                            <div class="option-card" data-question="usage" data-value="general">
+                                <span class="option-icon">🎓</span>
+                                <span class="option-text">School / General Use</span>
+                                <span class="option-subtitle">Web browsing, documents, light tasks</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 2: Resolution -->
+                    <div class="question disabled" id="question2">
+                        <span class="question-number">2</span>
+                        <span class="question-title">What resolution will you be using?</span>
+                        <div class="dynamic-hint" id="resolutionHint"></div>
+                        <div class="options-grid">
+                            <div class="option-card" data-question="resolution" data-value="1080p">
+                                <span class="option-text">1080p (Full HD)</span>
+                                <span class="option-subtitle">Most popular, great performance</span>
+                                <div class="recommended-badge" style="display: none;">RECOMMENDED</div>
+                            </div>
+                            <div class="option-card" data-question="resolution" data-value="1440p">
+                                <span class="option-text">1440p (Quad HD)</span>
+                                <span class="option-subtitle">Sweet spot for quality & performance</span>
+                            </div>
+                            <div class="option-card" data-question="resolution" data-value="4k">
+                                <span class="option-text">4K (Ultra HD)</span>
+                                <span class="option-subtitle">Ultimate quality, needs powerful hardware</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 3: Frame Rate -->
+                    <div class="question disabled" id="question3">
+                        <span class="question-number">3</span>
+                        <span class="question-title">What frame rate are you aiming for?</span>
+                        <div class="dynamic-hint" id="framerateHint"></div>
+                        <div class="options-grid">
+                            <div class="option-card" data-question="framerate" data-value="30fps">
+                                <span class="option-text">30 FPS (Playable)</span>
+                                <span class="option-subtitle">Smooth enough for most games</span>
+                            </div>
+                            <div class="option-card" data-question="framerate" data-value="60fps">
+                                <span class="option-text">60 FPS (Smooth)</span>
+                                <span class="option-subtitle">Great gaming experience</span>
+                            </div>
+                            <div class="option-card" data-question="framerate" data-value="144fps">
+                                <span class="option-text">144+ FPS (High Refresh)</span>
+                                <span class="option-subtitle">Competitive gaming advantage</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 4: Budget -->
+                    <div class="question disabled" id="question4">
+                        <span class="question-number">4</span>
+                        <span class="question-title">What is your total build budget?</span>
+                        <div class="dynamic-hint" id="budgetHint"></div>
+                        <div class="budget-grid">
+                            <div class="option-card" data-question="budget" data-value="under600">
+                                <span class="option-icon">💸</span>
+                                <span class="option-text">Under $800</span>
+                                <div class="warning-badge" style="display: none;">TOO LOW</div>
+                            </div>
+                            <div class="option-card" data-question="budget" data-value="600-1000">
+                                <span class="option-icon">💰</span>
+                                <span class="option-text">$800–$1200</span>
+                            </div>
+                            <div class="option-card" data-question="budget" data-value="1000-1500">
+                                <span class="option-icon">💵</span>
+                                <span class="option-text">$1200–$1600</span>
+                            </div>
+                            <div class="option-card" data-question="budget" data-value="over1500">
+                                <span class="option-icon">🤑</span>
+                                <span class="option-text">$1600+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 5: Size -->
+                    <div class="question disabled" id="question5">
+                        <span class="question-number">5</span>
+                        <span class="question-title">What size PC do you prefer?</span>
+                        <div class="dynamic-hint" id="sizeHint"></div>
+                        <div class="options-grid">
+                            <div class="option-card" data-question="size" data-value="small">
+                                <span class="option-icon">🧊</span>
+                                <span class="option-text">Small (Mini / Compact)</span>
+                                <span class="option-subtitle">Space-saving, limited upgrades</span>
+                            </div>
+                            <div class="option-card" data-question="size" data-value="medium">
+                                <span class="option-icon">🖥️</span>
+                                <span class="option-text">Medium (Balanced)</span>
+                                <span class="option-subtitle">Best balance of size & expandability</span>
+                            </div>
+                            <div class="option-card" data-question="size" data-value="large">
+                                <span class="option-icon">🛸</span>
+                                <span class="option-text">Large (Full Tower)</span>
+                                <span class="option-subtitle">Maximum cooling & upgrades</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 6: Aesthetics -->
+                    <div class="question disabled" id="question6">
+                        <span class="question-number">6</span>
+                        <span class="question-title">Do you care about how it looks?</span>
+                        <div class="budget-grid">
+                            <div class="option-card" data-question="aesthetics" data-value="rgb">
+                                <span class="option-icon">🌈</span>
+                                <span class="option-text">RGB & Lights</span>
+                            </div>
+                            <div class="option-card" data-question="aesthetics" data-value="white">
+                                <span class="option-icon">⚪</span>
+                                <span class="option-text">White Aesthetic</span>
+                            </div>
+                            <div class="option-card" data-question="aesthetics" data-value="stealth">
+                                <span class="option-icon">🕶️</span>
+                                <span class="option-text">Stealth / No Lights</span>
+                            </div>
+                            <div class="option-card" data-question="aesthetics" data-value="nomatter">
+                                <span class="option-icon">🤷</span>
+                                <span class="option-text">Doesn't Matter</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="build-preview" id="buildPreview">
+                        <h3>🎯 Your Build Profile:</h3>
+                        <ul id="buildDetails"></ul>
+                        <div class="price-range" id="priceRange"></div>
+                    </div>
+
+                    <button class="submit-button" id="submitButton" disabled>
+                        <span class="rocket-emoji">🚀</span>Show Me My Build Recommendations
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Component Selection Page -->
+        <div id="componentsPage" class="page">
+            <div class="components-container">
+                <div class="components-header fade-in">
+                    <div class="logo">PC Builder Companion</div>
+                    <h1 class="main-title">
+                        <span class="brain-emoji">🎯</span><span id="buildTypeTitle">Your Perfect Build</span>
+                    </h1>
+                    <p class="subtitle" id="buildSummary">Curated components for your specific needs</p>
+                </div>
+
+                <div class="build-overview" id="buildOverview">
+                    <div class="overview-card">
+                        <h3>🎮 Your Build Profile</h3>
+                        <div class="profile-details" id="profileDetails"></div>
+                    </div>
+                </div>
+
+                <div class="components-selection">
+                    <!-- CPU Section -->
+                    <div class="component-section">
+                        <div class="section-header">
+                            <h3>🧠 Processor (CPU)</h3>
+                            <button class="info-button" onclick="showComponentInfo('cpu')">What is this?</button>
+                        </div>
+                        <div class="component-filter" style="margin-bottom: 20px;">
+                            <label style="font-weight: 600; color: #5a4037; margin-right: 15px;">Brand:</label>
+                            <button class="filter-button active" id="allCpuBtn" onclick="filterCpuBrand('all')">All</button>
+                            <button class="filter-button" id="intelCpuBtn" onclick="filterCpuBrand('intel')">Intel</button>
+                            <button class="filter-button" id="amdCpuBtn" onclick="filterCpuBrand('amd')">AMD</button>
+                        </div>
+                        <div class="component-grid" id="cpuOptions"></div>
+                    </div>
+
+                    <!-- CPU Cooler Section -->
+                    <div class="component-section">
+                        <div class="section-header">
+                            <h3>❄️ CPU Cooler</h3>
+                            <button class="info-button" onclick="showComponentInfo('cooler')">What is this?</button>
+                        </div>
+                        <div class="requirement-note" id="coolerRequirement"></div>
+                        <div class="component-filter" style="margin-bottom: 20px;">
+                            <label style="font-weight: 600; color: #5a4037; margin-right: 15px;">Cooling Type:</label>
+                            <button class="filter-button active" id="allCoolersBtn" onclick="filterCoolerType('all')">All</button>
+                            <button class="filter-button" id="airCoolersBtn" onclick="filterCoolerType('air')">Air Cooling</button>
+                            <button class="filter-button" id="aioLiquidBtn" onclick="filterCoolerType('liquid')">AIO Liquid</button>
+                        </div>
+                        <div class="component-grid" id="coolerOptions"></div>
+                    </div>
+
+                    <!-- GPU Section -->
+                    <div class="component-section">
+                        <div class="section-header">
+                            <h3>🎨 Graphics Card (GPU)</h3>
+                            <button class="info-button" onclick="showComponentInfo('gpu')">What is this?</button>
+                        </div>
+                        <div class="requirement-note" id="gpuRequirement"></div>
+                        <div class="component-filter" style="margin-bottom: 20px;">
+                            <label style="font-weight: 600; color: #5a4037; margin-right: 15px;">Brand:</label>
+                            <button class="filter-button active" id="allGpuBtn" onclick="filterGpuBrand('all')">All</button>
+                            <button class="filter-button" id="nvidiaGpuBtn" onclick="filterGpuBrand('nvidia')">NVIDIA</button>
+                            <button class="filter-button" id="amdGpuBtn" onclick="filterGpuBrand('amd')">AMD</button>
+                        </div>
+                        <div class="component-grid" id="gpuOptions"></div>
+                    </div>
+
+                    <!-- RAM Section -->
+                    <div class="component-section">
+                        <div class="section-header">
+                            <h3>⚡ Memory (RAM)</h3>
+                            <button class="info-button" onclick="showComponentInfo('ram')">What is this?</button>
+                        </div>
+                        <div class="requirement-note" id="ramRequirement"></div>
+                        <div class="component-grid" id="ramOptions"></div>
+                    </div>
+
+                    <!-- Storage Section -->
+                    <div class="component-section">
+                        <div class="section-header">
+                            <h3>💾 Storage</h3>
+                            <button class="info-button" onclick="showComponentInfo('storage')">What is this?</button>
+                        </div>
+                        <div class="requirement-note" id="storageRequirement"></div>
+                        <div class="component-grid" id="storageOptions"></div>
+                    </div>
+
+                    <div class="component-section">
+                        <div class="section-header">
+                            <h3>🌐 Motherboard</h3>
+                            <button class="info-button" onclick="showComponentInfo('motherboard')">What is this?</button>
+                        </div>
+                        <div class="requirement-note" id="motherboardRequirement">🎯 Motherboard must match CPU socket and support your RAM type</div>
+                        <div class="component-grid" id="motherboardOptions"></div>
+                    </div>
+
+                    <!-- PSU Section -->
+                    <div class="component-section">
+                        <div class="section-header">
+                            <h3>🔌 Power Supply (PSU)</h3>
+                            <button class="info-button" onclick="showComponentInfo('psu')">What is this?</button>
+                        </div>
+                        <div class="requirement-note" id="psuRequirement"></div>
+                        <div class="component-grid" id="psuOptions"></div>
+                    </div>
+
+                    <!-- Case Section -->
+                    <div class="component-section">
+                        <div class="section-header">
+                            <h3>🏠 PC Case</h3>
+                            <button class="info-button" onclick="showComponentInfo('case')">What is this?</button>
+                        </div>
+                        <div class="component-grid" id="caseOptions"></div>
+                    </div>
+                </div>
+
+                <div class="final-summary" id="finalSummary">
+                    <h3>📋 Your Complete Build</h3>
+                    
+                    <!-- PCPartPicker Integration Section -->
+                    <div class="pcpartpicker-section" style="background: #e8f4fd; border: 1px solid #2196f3; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <span style="font-size: 1.2rem; margin-right: 8px;">🔗</span>
+                            <h4 style="margin: 0; color: #1976d2; font-size: 1.1rem;">Ready for PCPartPicker</h4>
+                        </div>
+                        <p style="margin: 0 0 15px 0; color: #333; font-size: 0.95rem; line-height: 1.5;">
+                            Now that you have a base list, you're ready to transfer this to PCPartPicker and check for live market prices as well as swap any components. All you need to do is copy and paste the component names to the component sections in PCPartPicker.
+                        </p>
+                        <p style="margin: 0 0 15px 0; color: #666; font-size: 0.85rem; font-style: italic;">
+                            <strong>Note:</strong> Prices may vary as this tool uses reference pricing, while PCPartPicker shows current market prices from retailers.
+                        </p>
+                        <a href="https://pcpartpicker.com/list/" target="_blank" rel="noopener noreferrer" 
+                           style="display: inline-flex; align-items: center; background: #2196f3; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">
+                            <span style="margin-right: 6px;">🌐</span>
+                            Open PCPartPicker
+                        </a>
+                    </div>
+                    
+                    <div class="selected-components" id="selectedComponents"></div>
+                    <div class="build-totals">
+                        <div class="total-price" id="totalPrice">Total: $0</div>
+                        <div class="estimated-performance" id="estimatedPerformance"></div>
+                    </div>
+                    <button class="finalize-button" id="finalizeButton">
+                        🚀 Finalize My Build
+                    </button>
+                </div>
+            </div>
+
+            <!-- Component Info Modal -->
+            <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+                <div class="modal-content" onclick="event.stopPropagation()">
+                    <div class="modal-header">
+                        <h3 id="modalTitle">Component Info</h3>
+                        <button class="close-button" onclick="closeModal()">×</button>
+                    </div>
+                    <div class="modal-body" id="modalBody"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let componentData = {};
+        let selectedComponents = {};
+        let totalPrice = 0;
+        let currentCoolerTypeFilter = 'all';
+        let currentCpuBrandFilter = 'all';
+        let currentGpuBrandFilter = 'all';
+
+        // Price formatting function
+        function formatPrice(price) {
+            if (price == null || isNaN(price)) return '$0';
+            return `$${Math.round(price)}`;
+        }
+
+        // Parse price from component
+        function parsePrice(priceStr) {
+            if (typeof priceStr === 'number') return priceStr;
+            if (typeof priceStr === 'string') {
+                return parseFloat(priceStr.replace('$', '').replace(',', ''));
+            }
+            return 0;
+        }
+            
+        const CONFIG = {
+            // Performance tier hierarchy
+            PERFORMANCE_TIERS: {
+                budget: 1,
+                mid: 2, 
+                high: 3,
+                enthusiast: 4
+            },
+
+            // FIXED: Updated budget allocation with more realistic motherboard budget
+            BUDGET_ALLOCATION: {
+                budget:     { gpu:0.28, cpu:0.18, ram:0.08, motherboard:0.16, storage:0.10, psu:0.09, cooler:0.06, case:0.05 },
+                mid:        { gpu:0.33, cpu:0.20, ram:0.08, motherboard:0.15, storage:0.09, psu:0.08, cooler:0.04, case:0.03 },
+                high:       { gpu:0.36, cpu:0.22, ram:0.08, motherboard:0.13, storage:0.08, psu:0.07, cooler:0.04, case:0.02 },
+                enthusiast: { gpu:0.38, cpu:0.23, ram:0.08, motherboard:0.12, storage:0.08, psu:0.06, cooler:0.03, case:0.02 }
+            },
+
+            // GPU price ranges by performance tier
+            GPU_PRICE_RANGES: {
+                budget: { min: 150, max: 400 },
+                mid: { min: 400, max: 700 },
+                high: { min: 700, max: 1200 },
+                enthusiast: { min: 1200, max: 2500 }
+            },
+
+            // Performance requirements matrix
+            PERFORMANCE_MATRIX: {
+                '1080p': { '30fps': 'budget', '60fps': 'mid', '144fps': 'high' },
+                '1440p': { '30fps': 'budget', '60fps': 'mid', '144fps': 'high' },
+                '4k': { '30fps': 'mid', '60fps': 'high', '144fps': 'enthusiast' }
+            },
+
+            // Usage type adjustments
+            USAGE_MULTIPLIER: {
+                'general': 0.7,
+                'gaming': 1.0,
+                'streaming': 1.2,
+                'workstation': 1.5
+            },
+
+            // Budget limits by category - FIXED TO MATCH UI
+            BUDGET_LIMITS: {
+                'under600': 800,
+                '600-1000': 1200,
+                '1000-1500': 1600,
+                'over1500': 2500
+            },
+
+            // Component scoring weights
+            SCORING: {
+                PERFORMANCE_WEIGHT: 0.6,
+                PRICE_WEIGHT: 0.4
+            }
+        };
+        
+        // Navigation
+        async function showPage(page) {
+            const pages = document.querySelectorAll('.page');
+            const buttons = document.querySelectorAll('.nav-button');
+            
+            pages.forEach(p => p.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(page + 'Page').classList.add('active');
+            document.getElementById(page + 'Btn').classList.add('active');
+            
+            // Change background color based on page
+            if (page === 'wizard') {
+                document.body.classList.add('wizard-mode');
+            } else {
+                document.body.classList.remove('wizard-mode');
+            }
+
+            // Load component recommendations if switching to components page
+            if (page === 'components' && localStorage.getItem('pcBuilderChoices')) {
+                await loadComponentRecommendations();
+            }
+        }
+
+        // FIXED: Performance Tier Mapping - Less aggressive for streaming/workstation
+        function getPerformanceTierFromTarget(resolution, framerate, usage) {
+            const performanceMatrix = {
+                '1080p': {
+                    '30fps': 'budget',
+                    '60fps': usage === 'general' ? 'budget' : 'mid',
+                    '144fps': 'high'
+                },
+                '1440p': {
+                    '30fps': 'budget',
+                    '60fps': 'mid',
+                    '144fps': 'high'
+                },
+                '4k': {
+                    '30fps': 'mid',
+                    '60fps': 'high',
+                    '144fps': 'enthusiast'
+                }
+            };
+            
+            let baseTier = performanceMatrix[resolution]?.[framerate] || 'mid';
+            
+            // FIXED: Less aggressive tier bumping to prevent budget overruns
+            if (usage === 'workstation') {
+                // Only bump workstation builds if they have enough budget
+                const tierUpgrade = { 'budget': 'mid' }; // Less aggressive
+                baseTier = tierUpgrade[baseTier] || baseTier;
+            } else if (usage === 'streaming' && (resolution === '1440p' || resolution === '4k')) {
+                // Only bump streaming builds for higher resolutions where extra CPU is needed
+                const tierUpgrade = { 'budget': 'mid' };
+                baseTier = tierUpgrade[baseTier] || baseTier;
+            }
+            
+            return baseTier;
+        }
+
+        // FIXED: Get user's actual budget limit - now uses CONFIG values
+        function getUserBudgetLimit(budgetChoice) {
+            return CONFIG.BUDGET_LIMITS[budgetChoice] || 1000;
+        }
+
+        // Budget Allocation with strict limits
+        function getBudgetAllocation(totalBudget, performanceTier) {
+            const allocations = CONFIG.BUDGET_ALLOCATION[performanceTier] || CONFIG.BUDGET_ALLOCATION.mid;
+            const budget = {};
+            
+            // Reserve 5% for price variations
+            const adjustedBudget = totalBudget * 0.95;
+            
+            Object.entries(allocations).forEach(([component, percentage]) => {
+                budget[component] = {
+                    target: Math.round(adjustedBudget * percentage),
+                    min: Math.round(adjustedBudget * percentage * 0.7),
+                    max: Math.round(adjustedBudget * percentage * 1.3)
+                };
+            });
+            
+            return budget;
+        }
+
+        // Weighted Scoring Function with budget consideration
+        function calculateComponentScore(component, targetPrice, performanceTier, budgetRemaining = null) {
+            const alpha = CONFIG.SCORING.PERFORMANCE_WEIGHT;
+            const beta = CONFIG.SCORING.PRICE_WEIGHT;
+            
+            // Normalize performance (tier-based score)
+            const tierScores = { budget: 1, mid: 2, high: 3, enthusiast: 4 };
+            const targetTierScore = tierScores[performanceTier] || 2;
+            const componentTierScore = tierScores[component.performance_tier] || 2;
+            const normalizedPerformance = Math.min(componentTierScore / targetTierScore, 1.5);
+            
+            // Normalize price
+            let normalizedPrice = 1.0;
+            const componentPrice = parsePrice(component.price);
+            if (componentPrice > 0 && targetPrice > 0) {
+                const priceRatio = componentPrice / targetPrice;
+                normalizedPrice = Math.max(0.1, 2 - priceRatio);
+                
+                // Heavy penalty if component exceeds remaining budget
+                if (budgetRemaining != null && componentPrice > budgetRemaining) {
+                    normalizedPrice *= 0.1;
+                }
+            }
+            
+            // Calculate weighted score
+            const score = alpha * normalizedPerformance - beta * (2 - normalizedPrice);
+            
+            return {
+                score: score,
+                performanceScore: normalizedPerformance,
+                priceScore: normalizedPrice,
+                details: `P:${normalizedPerformance.toFixed(2)} Pr:${normalizedPrice.toFixed(2)} = ${score.toFixed(2)}`
+            };
+        }
+
+        // Component data loading functions with better error handling
+        async function loadComponentData() {
+            console.log('🔄 Loading component data from JSON files...');
+            
+            // First, check if we're running from file:// protocol
+            if (window.location.protocol === 'file:') {
+                console.warn('⚠️ Running from file:// protocol. JSON loading may fail due to CORS. Consider using a local server.');
+            }
+            
+            try {
+                const files = ['cpus.json', 'gpus.json', 'ram.json', 'storage.json', 'psu.json', 'motherboards.json', 'cases.json', 'coolers.json'];
+                const promises = files.map(async file => {
+                    try {
+                        // Try different paths
+                        let response = await fetch(`data/${file}`);
+                        
+                        // If that fails, try without data/ prefix
+                        if (!response.ok && response.status === 404) {
+                            console.log(`Trying alternate path for ${file}`);
+                            response = await fetch(file);
+                        }
+                        
+                        // If still failing, try with ./ prefix
+                        if (!response.ok && response.status === 404) {
+                            console.log(`Trying ./ path for ${file}`);
+                            response = await fetch(`./${file}`);
+                        }
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status} for ${file}`);
+                        }
+                        
+                        const data = await response.json();
+                        const componentType = file.replace('.json', '');
+                        return { type: componentType, data };
+                    } catch (error) {
+                        console.warn(`⚠️ Failed to load ${file}:`, error.message);
+                        // Return empty array instead of failing completely
+                        const componentType = file.replace('.json', '');
+                        return { type: componentType, data: [] };
+                    }
+                });
+
+                const results = await Promise.all(promises);
+                
+                // Store data in global object
+                componentData = {};
+                results.forEach(({ type, data }) => {
+                    componentData[type] = data;
+                    if (data.length > 0) {
+                        console.log(`✅ Loaded ${data.length} ${type}`);
+                    } else {
+                        console.warn(`⚠️ No data loaded for ${type}`);
+                    }
+                });
+
+                // If no data was loaded at all, provide fallback data
+                if (Object.values(componentData).every(arr => arr.length === 0)) {
+                    console.warn('⚠️ No component data loaded. Using fallback data.');
+                    componentData = getFallbackComponentData();
+                }
+
+                console.log('🎉 Component data loading complete!', componentData);
+                return true;
+                
+            } catch (error) {
+                console.error('❌ Critical error loading component data:', error);
+                // Use fallback data
+                componentData = getFallbackComponentData();
+                return true; // Still return true so the app continues
+            }
+        }
+
+        // Fallback component data for when JSON files can't be loaded
+        function getFallbackComponentData() {
+            return {
+                cpus: [
+                    { brand: "AMD", model: "Ryzen 5 7600", price: 229, socket: "AM5", cores: 6, threads: 12, tdp: 65, performance_tier: "mid", usage_types: ["gaming", "general", "streaming"] },
+                    { brand: "Intel", model: "Core i5-13600K", price: 289, socket: "LGA1700", cores: 14, threads: 20, tdp: 125, performance_tier: "mid", usage_types: ["gaming", "general", "streaming"] },
+                    { brand: "AMD", model: "Ryzen 7 7700X", price: 349, socket: "AM5", cores: 8, threads: 16, tdp: 105, performance_tier: "high", usage_types: ["gaming", "streaming", "workstation"] },
+                    { brand: "Intel", model: "Core i7-13700K", price: 409, socket: "LGA1700", cores: 16, threads: 24, tdp: 125, performance_tier: "high", usage_types: ["gaming", "streaming", "workstation"] }
+                ],
+                gpus: [
+                    { brand: "AMD", model: "Radeon RX 7700 XT", price: 449, memory_gb: 12, power_draw: 245, performance_tier: "mid", target_resolution: { "1080p": { "60fps": "ultra", "144fps": "high" }, "1440p": { "60fps": "high", "144fps": "medium" }, "4k": { "30fps": "medium", "60fps": "low" } } },
+                    { brand: "NVIDIA", model: "RTX 4070", price: 599, memory_gb: 12, power_draw: 200, performance_tier: "high", target_resolution: { "1080p": { "60fps": "ultra", "144fps": "ultra" }, "1440p": { "60fps": "ultra", "144fps": "high" }, "4k": { "30fps": "high", "60fps": "medium" } } },
+                    { brand: "AMD", model: "Radeon RX 7900 XT", price: 899, memory_gb: 20, power_draw: 315, performance_tier: "high", target_resolution: { "1080p": { "60fps": "ultra", "144fps": "ultra" }, "1440p": { "60fps": "ultra", "144fps": "ultra" }, "4k": { "30fps": "ultra", "60fps": "high" } } },
+                    { brand: "NVIDIA", model: "RTX 4080", price: 1199, memory_gb: 16, power_draw: 320, performance_tier: "enthusiast", target_resolution: { "1080p": { "60fps": "ultra", "144fps": "ultra" }, "1440p": { "60fps": "ultra", "144fps": "ultra" }, "4k": { "30fps": "ultra", "60fps": "ultra", "144fps": "high" } } }
+                ],
+                ram: [
+                    { brand: "Corsair", model: "Vengeance LPX", price: 55, capacity: 16, type: "DDR4", speed: 3200, kit_config: "2x8GB", performance_tier: "budget", recommended_for: { gaming_1080p: true, general: true } },
+                    { brand: "G.Skill", model: "Trident Z5", price: 90, capacity: 32, type: "DDR5", speed: 5600, kit_config: "2x16GB", performance_tier: "mid", recommended_for: { gaming_1080p: true, gaming_4k: true, streaming: true } }
+                ],
+                storage: [
+                    { brand: "Samsung", model: "970 EVO Plus", price: 80, capacity: 1000, type: "SSD", interface: "NVMe", performance_tier: "mid", recommended_for: { gaming_1080p: true, gaming_4k: true, general: true } },
+                    { brand: "WD", model: "Black SN850X", price: 120, capacity: 1000, type: "SSD", interface: "NVMe", performance_tier: "high", recommended_for: { gaming_4k: true, workstation: true } }
+                ],
+                psu: [
+                    { brand: "Corsair", model: "RM750x", price: 109, wattage: 750, efficiency_rating: "80+ Gold", modularity: "Fully Modular", performance_tier: "mid" },
+                    { brand: "EVGA", model: "SuperNOVA 850 G6", price: 139, wattage: 850, efficiency_rating: "80+ Gold", modularity: "Fully Modular", performance_tier: "high" }
+                ],
+                motherboards: [
+                    { brand: "MSI", model: "B650 Gaming Plus", price: 159, socket: "AM5", chipset: "B650", memory_support: "DDR5", performance_tier: "mid", wifi: false },
+                    { brand: "ASUS", model: "TUF Gaming Z790-Plus", price: 229, socket: "LGA1700", chipset: "Z790", memory_support: "DDR5", performance_tier: "mid", wifi: true }
+                ],
+                cases: [
+                    { brand: "Fractal Design", model: "Pop Air", price: 89, type: "Mid Tower", motherboard_support: ["ATX", "mATX", "ITX"], size_preference: "medium", features: ["Tempered Glass"] },
+                    { brand: "Lian Li", model: "Lancool 216", price: 109, type: "Mid Tower", motherboard_support: ["ATX", "mATX", "ITX"], size_preference: "medium", features: ["Tempered Glass", "RGB"] }
+                ],
+                coolers: [
+                    { brand: "Noctua", model: "NH-U12S", price: 69, type: "Air", tdp_rating: 150, socket_compatibility: ["AM5", "AM4", "LGA1700", "LGA1200"], performance_tier: "mid" },
+                    { brand: "Arctic", model: "Liquid Freezer II 240", price: 99, type: "AIO", tdp_rating: 250, socket_compatibility: ["AM5", "AM4", "LGA1700", "LGA1200"], performance_tier: "high" }
+                ]
+            };
+        }
+
+        // FIXED: Enhanced GPU Filtering with proper high-end support and no artificial budget caps
+        function filterGPUs(choices, brandFilter = 'all', remainingBudget = null) {
+            const gpus = componentData.gpus || [];
+            console.log('🔍 Filtering GPUs from', gpus.length, 'total options for brand:', brandFilter);
+            
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            const budgetAllocation = getBudgetAllocation(userBudgetLimit, performanceTier);
+            const targetGPUPrice = budgetAllocation.gpu.target;
+            
+            console.log(`🎯 GPU filtering: ${performanceTier} tier, target: ${targetGPUPrice}, budget: ${userBudgetLimit}`);
+            
+            // FIXED: First filter by brand, then apply other criteria
+            let brandFiltered = gpus;
+            if (brandFilter !== 'all') {
+                brandFiltered = gpus.filter(gpu => {
+                    if (brandFilter === 'nvidia') {
+                        return gpu.brand?.toLowerCase().includes('nvidia') || 
+                               gpu.brand?.toLowerCase().includes('rtx') || 
+                               gpu.brand?.toLowerCase().includes('geforce') ||
+                               gpu.model?.toLowerCase().includes('rtx') ||
+                               gpu.model?.toLowerCase().includes('gtx');
+                    } else if (brandFilter === 'amd') {
+                        return gpu.brand?.toLowerCase().includes('amd') || 
+                               gpu.brand?.toLowerCase().includes('radeon') || 
+                               gpu.model?.toLowerCase().includes('rx') ||
+                               gpu.model?.toLowerCase().includes('radeon');
+                    }
+                    return true;
+                });
+                console.log(`📊 After brand filter (${brandFilter}): ${brandFiltered.length} GPUs`);
+            }
+            
+            // FIXED: Much more lenient budget filtering, especially for high-end builds
+            let filtered = brandFiltered.filter(gpu => {
+                const gpuPrice = parsePrice(gpu.price);
+                
+                // FIXED: For enthusiast builds with big budgets, don't cap GPU price artificially
+                if (performanceTier === 'enthusiast' && userBudgetLimit >= 2000) {
+                    // Allow any GPU price for enthusiast builds with big budgets
+                    if (gpuPrice > userBudgetLimit * 0.7) return false; // Max 70% of total budget
+                } else {
+                    // For other builds, be more lenient than before
+                    if (gpuPrice > budgetAllocation.gpu.max * 3) return false; // Allow 3x over budget
+                }
+                
+                // FIXED: More lenient tier enforcement, especially for 4K 144fps
+                if (gpu.performance_tier) {
+                    const tierOrder = { budget: 1, mid: 2, high: 3, enthusiast: 4 };
+                    const gpuTierNum = tierOrder[gpu.performance_tier] || 2;
+                    const requiredTierNum = tierOrder[performanceTier] || 2;
+                    
+                    // FIXED: For 4K 144fps enthusiast builds, allow all tiers (no restrictions)
+                    if (choices.resolution === '4k' && choices.framerate === '144fps') {
+                        // No tier restrictions for ultimate performance builds
+                    } else if (choices.resolution === '4k') {
+                        // For other 4K builds, require at least mid-tier
+                        if (gpuTierNum < 2) return false;
+                    } else {
+                        // For 1080p/1440p, allow any tier that's not too far below
+                        if (gpuTierNum < Math.max(1, requiredTierNum - 2)) return false;
+                    }
+                }
+                
+                // FIXED: More lenient performance matching for high-end builds
+                let performanceMatch = true;
+                if (gpu.target_resolution?.[choices.resolution]?.[choices.framerate]) {
+                    const performance = gpu.target_resolution[choices.resolution][choices.framerate];
+                    // Accept any performance level for enthusiast builds
+                    if (performanceTier === 'enthusiast') {
+                        performanceMatch = true; // Accept any performance level
+                    } else {
+                        performanceMatch = ['low', 'medium', 'high', 'ultra'].includes(performance);
+                    }
+                }
+                
+                return performanceMatch;
+            });
+            
+            console.log(`📊 After performance/budget filter: ${filtered.length} GPUs`);
+            
+            // FIXED: If brand filtering results in too few options, be more lenient
+            if (filtered.length < 2 && brandFilter !== 'all') {
+                console.warn(`⚠️ Only ${filtered.length} GPUs after brand filter, being more lenient...`);
+                filtered = brandFiltered.filter(gpu => {
+                    const gpuPrice = parsePrice(gpu.price);
+                    // For enthusiast builds, allow very high GPU prices
+                    const maxPrice = performanceTier === 'enthusiast' ? userBudgetLimit * 0.8 : budgetAllocation.gpu.max * 4;
+                    return gpuPrice <= maxPrice;
+                });
+            }
+            
+            // FIXED: Final fallback if still no results
+            if (filtered.length === 0) {
+                console.warn('⚠️ No GPUs found with brand filter, showing best matches regardless of budget');
+                filtered = brandFiltered.sort((a, b) => {
+                    // Sort by performance tier first, then price
+                    const tierOrder = { budget: 1, mid: 2, high: 3, enthusiast: 4 };
+                    const aTier = tierOrder[a.performance_tier] || 2;
+                    const bTier = tierOrder[b.performance_tier] || 2;
+                    if (aTier !== bTier) return bTier - aTier; // Higher tier first
+                    return parsePrice(b.price) - parsePrice(a.price); // Higher price first for enthusiast
+                }).slice(0, 4);
+            }
+            
+            // Score and rank GPUs with budget consideration
+            const scoredGPUs = filtered.map(gpu => {
+                let scoreData = calculateComponentScore(gpu, targetGPUPrice, performanceTier, remainingBudget);
+                
+                // FIXED: For enthusiast builds, prioritize higher-end GPUs
+                if (performanceTier === 'enthusiast') {
+                    const tierOrder = { budget: 1, mid: 2, high: 3, enthusiast: 4 };
+                    const gpuTierNum = tierOrder[gpu.performance_tier] || 2;
+                    scoreData.score += gpuTierNum * 0.2; // Bonus for higher tiers
+                    scoreData.details += ` +T${gpuTierNum}`;
+                }
+                
+                // FIXED: Don't penalize too heavily for going over budget when brand filtering
+                if (brandFilter !== 'all') {
+                    scoreData.score += 0.2; // Small bonus to prioritize brand matches
+                    scoreData.details += ' +Brand';
+                }
+                
+                return { ...gpu, scoreData };
+            }).sort((a, b) => b.scoreData.score - a.scoreData.score);
+            
+            console.log('🏆 Top GPU scores:', scoredGPUs.slice(0, 3).map(gpu => 
+                `${gpu.brand} ${gpu.model}: ${formatPrice(gpu.price)} (${gpu.scoreData.details})`));
+            
+            return scoredGPUs.slice(0, 4);
+        }
+
+        // FIXED: Enhanced CPU Filtering that preserves good options when brand filtering
+        function filterCPUs(choices, brandFilter = 'all', selectedGPU = null, remainingBudget = null) {
+            const cpus = componentData.cpus || [];
+            console.log('🔍 Filtering CPUs from', cpus.length, 'total options for brand:', brandFilter);
+            
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            const budgetAllocation = getBudgetAllocation(userBudgetLimit, performanceTier);
+            const targetCPUPrice = budgetAllocation.cpu.target;
+            
+            let requiredCPUTier = performanceTier;
+            if (selectedGPU?.performance_tier) {
+                const tierOrder = { budget: 1, mid: 2, high: 3, enthusiast: 4 };
+                const gpuTierNum = tierOrder[selectedGPU.performance_tier] || 2;
+                const minCPUTierNum = Math.max(1, gpuTierNum - 1);
+                requiredCPUTier = Object.keys(tierOrder).find(key => tierOrder[key] === minCPUTierNum) || 'mid';
+            }
+            
+            console.log(`🧠 CPU filtering: ${performanceTier} tier, target: ${targetCPUPrice}, max: ${budgetAllocation.cpu.max}`);
+            
+            // FIXED: First filter by brand, then apply other criteria
+            let brandFiltered = cpus;
+            if (brandFilter !== 'all') {
+                brandFiltered = cpus.filter(cpu => {
+                    if (brandFilter === 'intel') {
+                        return cpu.brand?.toLowerCase().includes('intel') || 
+                               cpu.model?.toLowerCase().includes('intel') ||
+                               cpu.model?.toLowerCase().includes('core');
+                    } else if (brandFilter === 'amd') {
+                        return cpu.brand?.toLowerCase().includes('amd') || 
+                               cpu.model?.toLowerCase().includes('ryzen') ||
+                               cpu.model?.toLowerCase().includes('amd');
+                    }
+                    return true;
+                });
+                console.log(`📊 After brand filter (${brandFilter}): ${brandFiltered.length} CPUs`);
+            }
+
+            let filtered = brandFiltered.filter(cpu => {
+                const cpuPrice = parsePrice(cpu.price);
+                
+                // More lenient budget limits
+                if (cpuPrice > budgetAllocation.cpu.max * 1.5) return false; // Allow 50% over budget
+                
+                // More lenient tier matching
+                let tierMatch = true;
+                if (cpu.performance_tier) {
+                    const tierOrder = { budget: 1, mid: 2, high: 3, enthusiast: 4 };
+                    const cpuTierNum = tierOrder[cpu.performance_tier] || 1;
+                    const requiredTierNum = tierOrder[requiredCPUTier] || 1;
+                    // Allow 2 tiers below required (was 0 tiers below)
+                    tierMatch = cpuTierNum >= Math.max(1, requiredTierNum - 2);
+                }
+                
+                // Usage match - more lenient
+                let usageMatch = true;
+                if (cpu.usage_types?.length) {
+                    usageMatch = cpu.usage_types.includes(choices.usage) || 
+                                cpu.usage_types.includes('gaming') || // Always allow gaming CPUs
+                                cpu.usage_types.includes('general'); // Always allow general CPUs
+                }
+                
+                return tierMatch && usageMatch;
+            });
+            
+            // FIXED: If brand filtering results in too few options, be more lenient
+            if (filtered.length < 2 && brandFilter !== 'all') {
+                console.warn(`⚠️ Only ${filtered.length} CPUs after brand filter, being more lenient...`);
+                filtered = brandFiltered.filter(cpu => {
+                    const cpuPrice = parsePrice(cpu.price);
+                    // Only apply very basic budget filter
+                    return cpuPrice <= budgetAllocation.cpu.max * 2; // Very lenient budget
+                });
+            }
+
+            // FIXED: Final fallback if no CPUs found
+            if (filtered.length === 0) {
+                console.warn('⚠️ No CPUs within any budget, showing all compatible CPUs for brand');
+                filtered = brandFiltered.sort((a, b) => {
+                    // Sort by performance tier first, then price
+                    const tierOrder = { budget: 1, mid: 2, high: 3, enthusiast: 4 };
+                    const aTier = tierOrder[a.performance_tier] || 2;
+                    const bTier = tierOrder[b.performance_tier] || 2;
+                    if (aTier !== bTier) return bTier - aTier; // Higher tier first
+                    return parsePrice(a.price) - parsePrice(b.price); // Then cheaper first
+                }).slice(0, 4);
+            }
+
+            // Enhanced scoring with AMD price/performance advantage
+            const scoredCPUs = filtered.map(cpu => {
+                let scoreData = calculateComponentScore(cpu, targetCPUPrice, performanceTier, remainingBudget);
+                
+                // Add bonus for AMD CPUs for better price/performance
+                if (cpu.brand?.toLowerCase().includes('amd')) {
+                    scoreData.score += 0.15;
+                    scoreData.details += ' +AMD value';
+                }
+                
+                // FIXED: Bonus when brand filtering to prioritize brand matches
+                if (brandFilter !== 'all') {
+                    scoreData.score += 0.1;
+                    scoreData.details += ' +Brand';
+                }
+                
+                return { ...cpu, scoreData };
+            }).sort((a, b) => b.scoreData.score - a.scoreData.score);
+            
+            console.log('🏆 Top CPU scores:', scoredCPUs.slice(0, 3).map(cpu => 
+                `${cpu.brand} ${cpu.model}: ${formatPrice(cpu.price)} (${cpu.scoreData.details})`));
+            
+            return scoredCPUs.slice(0, 4);
+        }
+
+        // FIXED: Enhanced RAM Filtering with lenient budget limits
+        function filterRAM(choices, remainingBudget = null) {
+            const ram = componentData.ram || [];
+            console.log('🔍 Filtering RAM from', ram.length, 'total options');
+            
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            const budgetAllocation = getBudgetAllocation(userBudgetLimit, performanceTier);
+            const targetRAMPrice = budgetAllocation.ram.target;
+            
+            // FIXED: Less strict DDR5 requirements for streaming/workstation builds
+            const preferDDR5 = ['mid', 'high', 'enthusiast'].includes(performanceTier);
+            
+            console.log(`⚡ RAM filtering: ${performanceTier} tier, DDR5 preferred: ${preferDDR5}, target: ${targetRAMPrice}`);
+            
+            let filtered = ram.filter(module => {
+                const ramPrice = parsePrice(module.price);
+                
+                // FIXED: More lenient budget limits for RAM
+                if (ramPrice > budgetAllocation.ram.max * 1.5) return false;
+                if (remainingBudget != null && ramPrice > remainingBudget * 0.25) return false;
+                
+                // Usage match (less strict)
+                let usageMatch = true;
+                if (module.recommended_for) {
+                    const usageKey = getRAMUsageKey(choices);
+                    usageMatch = module.recommended_for[usageKey] === true;
+                }
+                
+                return usageMatch;
+            });
+            
+            // FIXED: Fallback if no RAM found
+            if (filtered.length === 0) {
+                console.warn('⚠️ No RAM within strict limits, showing all available RAM');
+                filtered = ram.filter(module => {
+                    const ramPrice = parsePrice(module.price);
+                    return ramPrice <= budgetAllocation.ram.max * 2; // Very lenient fallback
+                });
+            }
+            
+            // Score and rank RAM
+            const scoredRAM = filtered.map(module => {
+                let scoreData = calculateComponentScore(module, targetRAMPrice, performanceTier, remainingBudget);
+                
+                // Bonus for DDR5 in higher tiers
+                if (preferDDR5 && module.type === 'DDR5') {
+                    scoreData.score += 0.2;
+                    scoreData.details += ' +DDR5';
+                }
+                
+                return { ...module, scoreData };
+            }).sort((a, b) => b.scoreData.score - a.scoreData.score);
+            
+            return scoredRAM.slice(0, 3);
+        }
+
+        // FIXED: Enhanced Storage filtering with lenient budget limits
+        function filterStorage(choices, remainingBudget = null) {
+            const storage = componentData.storage || [];
+            console.log('🔍 Filtering Storage from', storage.length, 'total options');
+            
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            const budgetAllocation = getBudgetAllocation(userBudgetLimit, performanceTier);
+            const targetStoragePrice = budgetAllocation.storage.target;
+            
+            const preferNVMe = ['mid', 'high', 'enthusiast'].includes(performanceTier);
+            
+            let filtered = storage.filter(drive => {
+                const drivePrice = parsePrice(drive.price);
+                
+                // FIXED: More lenient budget limits for storage
+                if (drivePrice > budgetAllocation.storage.max * 1.5) return false;
+                if (remainingBudget != null && remainingBudget > 100 && drivePrice > remainingBudget * 0.25) return false;
+                
+                // Usage match (less strict)
+                let usageMatch = true;
+                if (drive.recommended_for) {
+                    const usageKey = getStorageUsageKey(choices);
+                    usageMatch = drive.recommended_for[usageKey] === true;
+                }
+                
+                return usageMatch;
+            });
+            
+            // FIXED: Fallback if no storage found
+            if (filtered.length === 0) {
+                console.warn('⚠️ No storage within strict limits, showing all available storage');
+                filtered = storage.filter(drive => {
+                    const drivePrice = parsePrice(drive.price);
+                    return drivePrice <= budgetAllocation.storage.max * 2; // Very lenient fallback
+                });
+            }
+            
+            // Score and rank storage
+            const scoredStorage = filtered.map(drive => {
+                let score = calculateComponentScore(drive, targetStoragePrice, performanceTier, remainingBudget);
+                
+                // Bonus for NVMe SSDs
+                if (preferNVMe && drive.interface === 'NVMe') {
+                    score.score += 0.3;
+                    score.details += ' +NVMe';
+                }
+                
+                return { ...drive, scoreData: score };
+            }).sort((a, b) => b.scoreData.score - a.scoreData.score);
+            
+            return scoredStorage.slice(0, 3);
+        }
+
+        function filterPSU(choices, totalSystemPower = 0, remainingBudget = null) {
+            const psus = componentData.psu || [];
+            console.log('🔍 Filtering PSUs from', psus.length, 'total options');
+            
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            const budgetAllocation = getBudgetAllocation(userBudgetLimit, performanceTier);
+            const targetPSUPrice = budgetAllocation.psu.target;
+            
+            // Calculate required wattage
+            const gpuPower = selectedComponents.gpu?.power_draw ?? 200;
+            const cpuTdp = selectedComponents.cpu?.tdp ?? 100;
+            const systemOverhead = 150;
+            const calculatedPower = gpuPower + cpuTdp + systemOverhead;
+            const requiredWattage = Math.max(calculatedPower * 1.3, totalSystemPower * 1.3, 450);
+            
+            console.log(`🔌 PSU filtering: min ${Math.round(requiredWattage)}W, target: ${targetPSUPrice}`);
+            
+            const filtered = psus.filter(psu => {
+                const psuPrice = parsePrice(psu.price);
+                
+                // Budget limits
+                if (psuPrice > budgetAllocation.psu.max * 1.5) return false;
+                
+                // Wattage requirement
+                if (psu.wattage < requiredWattage) return false;
+                
+                return true;
+            });
+            
+            // Score and rank PSUs
+            const scoredPSUs = filtered.map(psu => {
+                let score = calculateComponentScore(psu, targetPSUPrice, performanceTier, remainingBudget);
+                
+                // Bonus for efficiency
+                if (psu.efficiency_rating?.includes('Gold') || psu.efficiency_rating?.includes('Platinum')) {
+                    score.score += 0.1;
+                    score.details += ' +Efficiency';
+                }
+                
+                return { ...psu, scoreData: score };
+            }).sort((a, b) => b.scoreData.score - a.scoreData.score);
+            
+            return scoredPSUs.slice(0, 3);
+        }
+
+        function filterCoolers(choices, coolerTypeFilter = 'all', selectedCPU = null, remainingBudget = null) {
+            const coolers = componentData.coolers || [];
+            console.log('🔍 Filtering Coolers from', coolers.length, 'total options');
+            
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            const budgetAllocation = getBudgetAllocation(userBudgetLimit, performanceTier);
+            const targetCoolerPrice = budgetAllocation.cooler.target;
+            
+            const filtered = coolers.filter(cooler => {
+                const coolerPrice = parsePrice(cooler.price);
+                
+                // Budget limits
+                if (coolerPrice > budgetAllocation.cooler.max) return false;
+                
+                // Type filter
+                let typeMatch = true;
+                if (coolerTypeFilter === 'air') {
+                    typeMatch = cooler.type === 'Air' || cooler.type === 'air';
+                } else if (coolerTypeFilter === 'liquid') {
+                    typeMatch = cooler.type === 'Liquid' || cooler.type === 'AIO' || cooler.type === 'liquid';
+                }
+                
+                // Socket compatibility
+                let socketMatch = true;
+                if (selectedCPU?.socket && cooler.socket_compatibility) {
+                    socketMatch = Array.isArray(cooler.socket_compatibility) 
+                        ? cooler.socket_compatibility.includes(selectedCPU.socket)
+                        : cooler.socket_compatibility === selectedCPU.socket;
+                }
+                
+                // TDP compatibility
+                let tdpMatch = true;
+                if (selectedCPU?.tdp && cooler.tdp_rating) {
+                    tdpMatch = cooler.tdp_rating >= selectedCPU.tdp * 1.1;
+                }
+                
+                return typeMatch && socketMatch && tdpMatch;
+            });
+            
+            // Score and rank coolers
+            const scoredCoolers = filtered.map(cooler => ({
+                ...cooler,
+                scoreData: calculateComponentScore(cooler, targetCoolerPrice, performanceTier, remainingBudget)
+            })).sort((a, b) => b.scoreData.score - a.scoreData.score);
+            
+            return scoredCoolers.slice(0, 4);
+        }
+
+        // Helper functions
+        function getRAMUsageKey(choices) {
+            if (choices.usage === 'workstation') return 'workstation';
+            if (choices.usage === 'streaming') return 'streaming';
+            if (choices.resolution === '4k') return 'gaming_4k';
+            if (choices.usage === 'gaming') return 'gaming_1080p';
+            return 'general';
+        }
+
+        function getStorageUsageKey(choices) {
+            if (choices.usage === 'workstation') return 'workstation';
+            if (choices.resolution === '4k') return 'gaming_4k';
+            if (choices.usage === 'gaming') return 'gaming_1080p';
+            return 'general';
+        }
+
+        // Enhanced component loading with budget tracking
+        function loadFilteredRecommendations(choices) {
+            if (!componentData) {
+                console.error('❌ componentData is undefined');
+                showLoadingError('Component data not loaded');
+                return;
+            }
+
+            console.log('🔍 Filtering components for choices:', choices);
+            
+            // Calculate total budget and track remaining
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            let remainingBudget = userBudgetLimit;
+            
+            generateRequirementsText(choices);
+            
+            try {
+                console.log('🎯 Starting budget-aware component filtering...');
+                console.log(`💰 Total budget: ${userBudgetLimit}`);
+                
+                // Clear selections to avoid confusion
+                selectedComponents = {};
+                
+                // 1. Filter GPUs first (largest budget item)
+                const filteredGPUs = filterGPUs(choices, currentGpuBrandFilter, remainingBudget);
+                if (filteredGPUs.length === 0 && componentData.gpus?.length === 0) {
+                    console.warn('⚠️ No GPU data available, using fallback');
+                }
+                renderFilteredComponents('gpuOptions', filteredGPUs, 'gpu');
+                if (filteredGPUs.length > 0) {
+                    const gpuPrice = parsePrice(filteredGPUs[0].price);
+                    remainingBudget -= gpuPrice;
+                    console.log(`💰 After GPU (${gpuPrice}): ${Math.round(remainingBudget)} remaining`);
+                }
+                
+                // 2. Filter CPUs
+                const selectedGPU = filteredGPUs[0];
+                const filteredCPUs = filterCPUs(choices, currentCpuBrandFilter, selectedGPU, remainingBudget);
+                renderFilteredComponents('cpuOptions', filteredCPUs, 'cpu');
+                if (filteredCPUs.length > 0) {
+                    const cpuPrice = parsePrice(filteredCPUs[0].price);
+                    remainingBudget -= cpuPrice;
+                    console.log(`💰 After CPU (${cpuPrice}): ${Math.round(remainingBudget)} remaining`);
+                }
+                
+                // 3. Load motherboard before other components to ensure compatibility
+                loadMotherboardRecommendations(choices, remainingBudget);
+                if (componentData.motherboards?.length > 0) {
+                    // Estimate motherboard cost
+                    const mbEstimate = Math.min(150, remainingBudget * 0.2);
+                    remainingBudget -= mbEstimate;
+                    console.log(`💰 After MB (est. ${Math.round(mbEstimate)}): ${Math.round(remainingBudget)} remaining`);
+                }
+                
+                // 4. Filter RAM
+                const filteredRAM = filterRAM(choices, remainingBudget);
+                renderFilteredComponents('ramOptions', filteredRAM, 'ram');
+                if (filteredRAM.length > 0) {
+                    const ramPrice = parsePrice(filteredRAM[0].price);
+                    remainingBudget -= ramPrice;
+                    console.log(`💰 After RAM (${ramPrice}): ${Math.round(remainingBudget)} remaining`);
+                }
+                
+                // 5. Filter Storage
+                const filteredStorage = filterStorage(choices, remainingBudget);
+                renderFilteredComponents('storageOptions', filteredStorage, 'storage');
+                if (filteredStorage.length > 0) {
+                    const storagePrice = parsePrice(filteredStorage[0].price);
+                    remainingBudget -= storagePrice;
+                    console.log(`💰 After Storage (${storagePrice}): ${Math.round(remainingBudget)} remaining`);
+                }
+                
+                // 6. Calculate PSU requirements and filter
+                const totalSystemPower = (selectedGPU?.power_draw ?? 150) + (filteredCPUs[0]?.tdp ?? 65) + 100;
+                const filteredPSU = filterPSU(choices, totalSystemPower, remainingBudget);
+                renderFilteredComponents('psuOptions', filteredPSU, 'psu');
+                if (filteredPSU.length > 0) {
+                    const psuPrice = parsePrice(filteredPSU[0].price);
+                    remainingBudget -= psuPrice;
+                    console.log(`💰 After PSU (${psuPrice}): ${Math.round(remainingBudget)} remaining`);
+                }
+                
+                // 7. Filter coolers
+                const filteredCoolers = filterCoolers(choices, currentCoolerTypeFilter, filteredCPUs[0], remainingBudget);
+                renderFilteredComponents('coolerOptions', filteredCoolers, 'cooler');
+                if (filteredCoolers.length > 0) {
+                    const coolerPrice = parsePrice(filteredCoolers[0].price);
+                    remainingBudget -= coolerPrice;
+                    console.log(`💰 After Cooler (${coolerPrice}): ${Math.round(remainingBudget)} remaining`);
+                }
+                
+                // 8. Load cases with remaining budget
+                loadCaseRecommendations(choices, remainingBudget);
+                
+                console.log(`💰 Final remaining budget: ${Math.round(remainingBudget)}`);
+                
+                // Update totals
+                updateTotals();
+                
+            } catch (error) {
+                console.error('❌ Error filtering components:', error);
+                showLoadingError(`Filtering error: ${error.message}`);
+            }
+        }
+
+        function generateRequirementsText(choices) {
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            const budgetAllocation = getBudgetAllocation(userBudgetLimit, performanceTier);
+            
+            // GPU Requirements
+            let gpuReq = `🎯 ${performanceTier.charAt(0).toUpperCase() + performanceTier.slice(1)} tier: ${formatPrice(budgetAllocation.gpu.min)}-${formatPrice(budgetAllocation.gpu.max)} for ${choices.resolution} ${choices.framerate}`;
+            // FIXED: For enthusiast builds, mention high-end options
+            if (performanceTier === 'enthusiast' && choices.resolution === '4k') {
+                gpuReq += '. High-end options like RTX 4090 recommended for best performance.';
+            }
+            document.getElementById('gpuRequirement').textContent = gpuReq;
+
+            // FIXED: Motherboard Requirements with size preference
+            let mbReq = '🎯 ';
+            const selectedCPU = selectedComponents.cpu;
+            if (selectedCPU) {
+                mbReq += `${selectedCPU.socket} socket required. `;
+            }
+            
+            // Add size-specific requirements
+            if (choices.size === 'small') {
+                mbReq += 'Mini-ITX form factor for compact build. ';
+            } else if (choices.size === 'large') {
+                mbReq += 'ATX/E-ATX form factor for maximum expansion. ';
+            } else {
+                mbReq += 'Micro-ATX or ATX form factor for balanced build. ';
+            }
+            
+            if (['high', 'enthusiast'].includes(performanceTier)) {
+                mbReq += 'WiFi and premium features recommended.';
+            } else if (performanceTier === 'mid') {
+                mbReq += 'Good VRM cooling for stable performance.';
+            } else {
+                mbReq += 'Basic features sufficient for this build.';
+            }
+            document.getElementById('motherboardRequirement').textContent = mbReq;
+
+            // Cooler Requirements
+            let coolerReq = '🎯 CPU cooler must support ';
+            
+            if (selectedCPU) {
+                coolerReq += `${selectedCPU.socket} socket with ${Math.round((selectedCPU.tdp || 65) * 1.1)}W+ cooling capacity`;
+            } else {
+                coolerReq += `selected CPU socket with adequate cooling capacity`;
+            }
+            
+            // Add size-specific cooler requirements
+            if (choices.size === 'small') {
+                coolerReq += '. Low-profile or compact coolers may be required.';
+            }
+            
+            document.getElementById('coolerRequirement').textContent = coolerReq;
+
+            // RAM Requirements
+            let ramReq = '';
+            const requireDDR5 = ['mid', 'high', 'enthusiast'].includes(performanceTier);
+            if (requireDDR5) {
+                ramReq = `🎯 DDR5 preferred. `;
+            } else {
+                ramReq = `🎯 DDR4 acceptable. `;
+            }
+            
+            if (choices.usage === 'workstation') {
+                ramReq += '32GB+ recommended for professional workloads';
+            } else if (choices.resolution === '4k' || choices.usage === 'streaming') {
+                ramReq += '32GB recommended for optimal performance';
+            } else {
+                ramReq += '16GB perfect for gaming and general use';
+            }
+            document.getElementById('ramRequirement').textContent = ramReq;
+
+            // Storage Requirements
+            let storageReq = '🎯 ';
+            if (performanceTier === 'enthusiast' || performanceTier === 'high') {
+                storageReq += 'NVMe SSD with 1TB+ capacity recommended';
+            } else if (performanceTier === 'mid') {
+                storageReq += 'SATA SSD or entry NVMe with 1TB capacity';
+            } else {
+                storageReq += '500GB SSD minimum for OS and programs';
+            }
+            document.getElementById('storageRequirement').textContent = storageReq;
+
+            // PSU Requirements
+            let psuReq = `🎯 450W+ minimum. `;
+            
+            // FIXED: Adjust PSU requirements for high-end builds
+            if (performanceTier === 'enthusiast') {
+                psuReq = `🎯 800W+ minimum for high-end components. `;
+            } else if (performanceTier === 'high') {
+                psuReq = `🎯 650W+ minimum. `;
+            }
+            
+            if (performanceTier === 'high' || performanceTier === 'enthusiast') {
+                psuReq += '80+ Gold efficiency preferred for power savings';
+            } else {
+                psuReq += '80+ Bronze efficiency is sufficient';
+            }
+            document.getElementById('psuRequirement').textContent = psuReq;
+        }
+
+        // Filter functions
+        function filterCpuBrand(brand) {
+            currentCpuBrandFilter = brand;
+            
+            document.querySelectorAll('#allCpuBtn, #intelCpuBtn, #amdCpuBtn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(brand === 'all' ? 'allCpuBtn' : 
+                                   brand === 'intel' ? 'intelCpuBtn' : 'amdCpuBtn').classList.add('active');
+            
+            const choices = JSON.parse(localStorage.getItem('pcBuilderChoices'));
+            if (choices && componentData.cpus) {
+                const userBudgetLimit = getUserBudgetLimit(choices.budget);
+                let remainingBudget = userBudgetLimit;
+                
+                // Subtract already selected components
+                Object.entries(selectedComponents).forEach(([type, component]) => {
+                    if (type !== 'cpu' && component) {
+                        remainingBudget -= parsePrice(component.price);
+                    }
+                });
+                
+                const selectedGPU = selectedComponents.gpu;
+                const filteredCPUs = filterCPUs(choices, brand, selectedGPU, remainingBudget);
+                renderFilteredComponents('cpuOptions', filteredCPUs, 'cpu');
+            }
+        }
+
+        function filterGpuBrand(brand) {
+            currentGpuBrandFilter = brand;
+            
+            document.querySelectorAll('#allGpuBtn, #nvidiaGpuBtn, #amdGpuBtn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(brand === 'all' ? 'allGpuBtn' : 
+                                   brand === 'nvidia' ? 'nvidiaGpuBtn' : 'amdGpuBtn').classList.add('active');
+            
+            const choices = JSON.parse(localStorage.getItem('pcBuilderChoices'));
+            if (choices && componentData.gpus) {
+                const userBudgetLimit = getUserBudgetLimit(choices.budget);
+                let remainingBudget = userBudgetLimit;
+                
+                // Subtract already selected components
+                Object.entries(selectedComponents).forEach(([type, component]) => {
+                    if (type !== 'gpu' && component) {
+                        remainingBudget -= parsePrice(component.price);
+                    }
+                });
+                
+                const filteredGPUs = filterGPUs(choices, brand, remainingBudget);
+                renderFilteredComponents('gpuOptions', filteredGPUs, 'gpu');
+            }
+        }
+
+        function filterCoolerType(type) {
+            currentCoolerTypeFilter = type;
+            
+            document.querySelectorAll('#allCoolersBtn, #airCoolersBtn, #aioLiquidBtn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(type === 'all' ? 'allCoolersBtn' : 
+                                   type === 'air' ? 'airCoolersBtn' : 'aioLiquidBtn').classList.add('active');
+            
+            const choices = JSON.parse(localStorage.getItem('pcBuilderChoices'));
+            if (choices && componentData.coolers) {
+                const userBudgetLimit = getUserBudgetLimit(choices.budget);
+                let remainingBudget = userBudgetLimit;
+                
+                // Subtract already selected components
+                Object.entries(selectedComponents).forEach(([type, component]) => {
+                    if (type !== 'cooler' && component) {
+                        remainingBudget -= parsePrice(component.price);
+                    }
+                });
+                
+                const selectedCPU = selectedComponents.cpu;
+                const filteredCoolers = filterCoolers(choices, type, selectedCPU, remainingBudget);
+                renderFilteredComponents('coolerOptions', filteredCoolers, 'cooler');
+            }
+        }
+
+        // Enhanced renderFilteredComponents
+        function renderFilteredComponents(containerId, components, componentType) {
+            const container = document.getElementById(containerId);
+            
+            if (!container) {
+                console.error(`Container ${containerId} not found`);
+                return;
+            }
+            
+            if (!Array.isArray(components) || components.length === 0) {
+                container.innerHTML = '<div class="no-components">No suitable components found for your requirements</div>';
+                return;
+            }
+
+            container.innerHTML = components.map((component, index) => {
+                const isRecommended = index === 0;
+                const specs = generateComponentSpecs(component, componentType);
+                const price = formatPrice(component.price);
+                
+                // Escape component JSON for safe attribute storage
+                const componentJson = JSON.stringify(component).replace(/"/g, '&quot;');
+                
+                return `
+                    <div class="component-option ${isRecommended ? 'recommended selected' : ''}" 
+                         data-component-type="${componentType}"
+                         data-component='${componentJson}'>
+                        <div class="component-name">${component.brand} ${component.model}</div>
+                        <div class="component-specs">${specs}</div>
+                        <div class="component-price">${price}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add click handlers after rendering
+            container.querySelectorAll('.component-option').forEach((element, index) => {
+                element.addEventListener('click', function(e) {
+                    const component = components[index];
+                    selectComponentWithEvent(componentType, component, e);
+                });
+            });
+
+            // Auto-select the first component
+            if (components.length > 0) {
+                selectedComponents[componentType] = components[0];
+                updateTotals();
+            }
+        }
+
+        // New function to handle component selection with event
+        function selectComponentWithEvent(type, component, event) {
+            // Remove previous selection
+            document.querySelectorAll(`#${type}Options .component-option`).forEach(el => {
+                el.classList.remove('selected');
+            });
+
+            // Add selection to clicked component
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('selected');
+            }
+
+            // Store selection
+            selectedComponents[type] = component;
+
+            console.log(`🔄 Component selected: ${type} - ${component.brand} ${component.model}`);
+
+            // Re-filter dependent components
+            const choices = JSON.parse(localStorage.getItem('pcBuilderChoices'));
+            if (choices) {
+                const userBudgetLimit = getUserBudgetLimit(choices.budget);
+                let remainingBudget = userBudgetLimit;
+                
+                // Calculate remaining budget
+                Object.entries(selectedComponents).forEach(([compType, comp]) => {
+                    if (comp) {
+                        remainingBudget -= parsePrice(comp.price);
+                    }
+                });
+                
+                console.log(`💰 Remaining budget after selection: ${Math.round(remainingBudget)}`);
+
+                // Update dependent components based on selection
+                if (type === 'gpu') {
+                    const filteredCPUs = filterCPUs(choices, currentCpuBrandFilter, component, remainingBudget);
+                    renderFilteredComponents('cpuOptions', filteredCPUs, 'cpu');
+                    
+                    const totalSystemPower = (component.power_draw ?? 200) + (selectedComponents.cpu?.tdp ?? 100) + 150;
+                    const filteredPSU = filterPSU(choices, totalSystemPower, remainingBudget);
+                    renderFilteredComponents('psuOptions', filteredPSU, 'psu');
+                }
+
+                if (type === 'cpu') {
+                    loadMotherboardRecommendations(choices, remainingBudget);
+                    
+                    const filteredCoolers = filterCoolers(choices, currentCoolerTypeFilter, component, remainingBudget);
+                    renderFilteredComponents('coolerOptions', filteredCoolers, 'cooler');
+                    
+                    const totalSystemPower = (selectedComponents.gpu?.power_draw ?? 200) + (component.tdp ?? 100) + 150;
+                    const filteredPSU = filterPSU(choices, totalSystemPower, remainingBudget);
+                    renderFilteredComponents('psuOptions', filteredPSU, 'psu');
+                }
+
+                if (type === 'case') {
+                    const selectedCPU = selectedComponents.cpu;
+                    const filteredCoolers = filterCoolers(choices, currentCoolerTypeFilter, selectedCPU, remainingBudget);
+                    renderFilteredComponents('coolerOptions', filteredCoolers, 'cooler');
+                }
+
+                generateRequirementsText(choices);
+            }
+
+            updateTotals();
+        }
+
+        // Component spec generation
+        function generateComponentSpecs(component, type) {
+            switch(type) {
+                case 'cpu':
+                    const cpuParts = [];
+                    if (component.cores != null && component.threads != null) {
+                        cpuParts.push(`${component.cores}C/${component.threads}T`);
+                    }
+                    if (component.socket) cpuParts.push(component.socket);
+                    if (component.tdp != null) cpuParts.push(`${component.tdp}W TDP`);
+                    if (component.performance_tier) cpuParts.push(`[${component.performance_tier.toUpperCase()}]`);
+                    return cpuParts.length ? cpuParts.join(', ') : 'CPU specifications unavailable';
+                    
+                case 'gpu':
+                    const gpuParts = [];
+                    if (component.memory_gb != null) gpuParts.push(`${component.memory_gb}GB VRAM`);
+                    if (component.power_draw != null) gpuParts.push(`${component.power_draw}W`);
+                    if (component.features?.length) gpuParts.push(component.features.slice(0, 2).join(', '));
+                    if (component.performance_tier) gpuParts.push(`[${component.performance_tier.toUpperCase()}]`);
+                    return gpuParts.length ? gpuParts.join(', ') : 'GPU specifications unavailable';
+                    
+                case 'ram':
+                    const ramParts = [];
+                    if (component.capacity != null) ramParts.push(`${component.capacity}GB`);
+                    if (component.type && component.speed) ramParts.push(`${component.type}-${component.speed}`);
+                    if (component.kit_config) ramParts.push(component.kit_config);
+                    if (component.performance_tier) ramParts.push(`[${component.performance_tier.toUpperCase()}]`);
+                    return ramParts.length ? ramParts.join(', ') : 'RAM specifications unavailable';
+                    
+                case 'storage':
+                    const storageParts = [];
+                    if (component.capacity != null) storageParts.push(`${component.capacity}GB`);
+                    if (component.type) storageParts.push(component.type);
+                    if (component.interface) storageParts.push(component.interface);
+                    if (component.performance_tier) storageParts.push(`[${component.performance_tier.toUpperCase()}]`);
+                    return storageParts.length ? storageParts.join(', ') : 'Storage specifications unavailable';
+                    
+                case 'psu':
+                    const psuParts = [];
+                    if (component.wattage != null) psuParts.push(`${component.wattage}W`);
+                    if (component.efficiency_rating) psuParts.push(component.efficiency_rating);
+                    if (component.modularity) psuParts.push(component.modularity);
+                    if (component.performance_tier) psuParts.push(`[${component.performance_tier.toUpperCase()}]`);
+                    return psuParts.length ? psuParts.join(', ') : 'PSU specifications unavailable';
+                    
+                case 'motherboard':
+                    const mbParts = [];
+                    if (component.form_factor) mbParts.push(component.form_factor);
+                    if (component.chipset) mbParts.push(component.chipset);
+                    if (component.socket) mbParts.push(component.socket);
+                    if (component.memory_support) mbParts.push(component.memory_support);
+                    if (component.wifi === true) mbParts.push('WiFi');
+                    if (component.performance_tier) mbParts.push(`[${component.performance_tier.toUpperCase()}]`);
+                    return mbParts.length ? mbParts.join(', ') : 'Motherboard specifications unavailable';
+                    
+                case 'case':
+                    const caseParts = [];
+                    if (component.type) caseParts.push(component.type);
+                    if (component.motherboard_support) {
+                        const support = Array.isArray(component.motherboard_support) ? 
+                            component.motherboard_support.join('/') : component.motherboard_support;
+                        caseParts.push(`${support} support`);
+                    }
+                    if (component.features?.length) {
+                        caseParts.push(component.features.slice(0, 2).join(', '));
+                    }
+                    if (component.max_cooler_height != null) caseParts.push(`${component.max_cooler_height}mm clearance`);
+                    return caseParts.length ? caseParts.join(', ') : 'Case specifications unavailable';
+                    
+                case 'cooler':
+                    const coolerParts = [];
+                    if (component.type) coolerParts.push(component.type);
+                    if (component.tdp_rating != null) coolerParts.push(`${component.tdp_rating}W TDP`);
+                    if (component.socket_compatibility) {
+                        const sockets = Array.isArray(component.socket_compatibility) ? 
+                            component.socket_compatibility.slice(0, 2).join('/') : component.socket_compatibility;
+                        coolerParts.push(sockets);
+                    }
+                    if (component.performance_tier) coolerParts.push(`[${component.performance_tier.toUpperCase()}]`);
+                    return coolerParts.length ? coolerParts.join(', ') : 'Cooler specifications unavailable';
+                    
+                default:
+                    return component.specs || 'Component specifications unavailable';
+            }
+        }
+
+        function updateTotals() {
+            totalPrice = 0;
+            
+            // Calculate total from selected components
+            Object.values(selectedComponents).forEach(component => {
+                if (component && component.price != null) {
+                    totalPrice += parsePrice(component.price);
+                }
+            });
+            
+            const totalPriceEl = document.getElementById('totalPrice');
+            if (totalPriceEl) {
+                totalPriceEl.textContent = `Total: ${formatPrice(totalPrice)}`;
+            }
+
+            const choices = JSON.parse(localStorage.getItem('pcBuilderChoices'));
+            if (!choices) return;
+            
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            
+            let performanceAnalysis = `Expected: ${choices.resolution} at ${choices.framerate}`;
+            
+            // Check for bottlenecks
+            const cpu = selectedComponents.cpu;
+            const gpu = selectedComponents.gpu;
+            
+            if (cpu && gpu) {
+                const tierOrder = { budget: 1, mid: 2, high: 3, enthusiast: 4 };
+                const cpuTierNum = tierOrder[cpu.performance_tier] || 2;
+                const gpuTierNum = tierOrder[gpu.performance_tier] || 2;
+                
+                if (cpuTierNum < gpuTierNum - 1) {
+                    performanceAnalysis += ' ⚠️ Potential CPU bottleneck';
+                } else if (gpuTierNum < cpuTierNum - 1) {
+                    performanceAnalysis += ' ⚠️ GPU may be underpowered';
+                } else {
+                    performanceAnalysis += ' ✅ Well balanced';
+                }
+            }
+            
+            const perfEl = document.getElementById('estimatedPerformance');
+            if (perfEl) {
+                perfEl.textContent = performanceAnalysis;
+            }
+
+            // Update selected components list
+            const selectedList = document.getElementById('selectedComponents');
+            if (selectedList) {
+                selectedList.innerHTML = Object.entries(selectedComponents).map(([type, component]) => {
+                    const tierBadge = component.performance_tier ? ` (${component.performance_tier})` : '';
+                    return `
+                        <div class="selected-item">
+                            <span>${getComponentTypeLabel(type)}: ${component.brand} ${component.model}${tierBadge}</span>
+                            <span>${formatPrice(component.price)}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        function getComponentTypeLabel(type) {
+            const labels = {
+                cpu: 'Processor',
+                gpu: 'Graphics Card',
+                ram: 'Memory',
+                storage: 'Storage',
+                motherboard: 'Motherboard',
+                psu: 'Power Supply',
+                case: 'Case',
+                cooler: 'CPU Cooler'
+            };
+            return labels[type] || type;
+        }
+
+        // FIXED: Enhanced motherboard filtering with size preference support
+        function loadMotherboardRecommendations(choices, remainingBudget = null) {
+            const motherboards = componentData.motherboards || [];
+            const selectedCPU = selectedComponents.cpu;
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            const budgetAllocation = getBudgetAllocation(userBudgetLimit, performanceTier);
+            const targetMBPrice = budgetAllocation.motherboard.target;
+            
+            console.log('🔍 Filtering Motherboards from', motherboards.length, 'total options');
+            console.log('💰 MB Budget:', { target: targetMBPrice, max: budgetAllocation.motherboard.max, remaining: remainingBudget });
+            console.log('🔧 Selected CPU socket:', selectedCPU?.socket);
+            console.log('📏 Size preference:', choices.size);
+            
+            // FIXED: Size-based form factor filtering
+            const getPreferredFormFactors = (sizePreference) => {
+                switch(sizePreference) {
+                    case 'small':
+                        return ['Mini-ITX', 'ITX', 'mini-itx', 'mini_itx', 'mitx']; // Compact builds
+                    case 'medium':
+                        return ['Micro-ATX', 'mATX', 'micro-atx', 'micro_atx', 'matx', 'ATX', 'atx']; // Balanced
+                    case 'large':
+                        return ['ATX', 'atx', 'E-ATX', 'EATX', 'e-atx', 'Extended-ATX']; // Full size
+                    default:
+                        return null; // No size filtering
+                }
+            };
+            
+            const preferredFormFactors = getPreferredFormFactors(choices.size);
+            
+            // FIXED: Multi-level fallback system with size awareness
+            let filtered = [];
+            
+            // Level 1: Socket + Size + Lenient Budget
+            if (selectedCPU?.socket && preferredFormFactors) {
+                filtered = motherboards.filter(mb => {
+                    const mbPrice = parsePrice(mb.price);
+                    const socketMatch = mb.socket === selectedCPU.socket;
+                    
+                    // Check form factor/size compatibility
+                    let sizeMatch = false;
+                    if (mb.form_factor) {
+                        sizeMatch = preferredFormFactors.some(ff => 
+                            mb.form_factor.toLowerCase().includes(ff.toLowerCase())
+                        );
+                    }
+                    // Also check in type field
+                    if (!sizeMatch && mb.type) {
+                        sizeMatch = preferredFormFactors.some(ff => 
+                            mb.type.toLowerCase().includes(ff.toLowerCase())
+                        );
+                    }
+                    
+                    return socketMatch && sizeMatch && mbPrice <= budgetAllocation.motherboard.max * 4;
+                });
+                console.log(`📊 Level 1 (socket + size + 4x budget): Found ${filtered.length} motherboards`);
+            }
+            
+            // Level 2: Socket + Size, ignore budget
+            if (filtered.length === 0 && selectedCPU?.socket && preferredFormFactors) {
+                filtered = motherboards.filter(mb => {
+                    const socketMatch = mb.socket === selectedCPU.socket;
+                    
+                    let sizeMatch = false;
+                    if (mb.form_factor) {
+                        sizeMatch = preferredFormFactors.some(ff => 
+                            mb.form_factor.toLowerCase().includes(ff.toLowerCase())
+                        );
+                    }
+                    if (!sizeMatch && mb.type) {
+                        sizeMatch = preferredFormFactors.some(ff => 
+                            mb.type.toLowerCase().includes(ff.toLowerCase())
+                        );
+                    }
+                    
+                    return socketMatch && sizeMatch;
+                });
+                console.log(`📊 Level 2 (socket + size, no budget): Found ${filtered.length} motherboards`);
+            }
+            
+            // Level 3: Socket only (ignore size preference if necessary)
+            if (filtered.length === 0 && selectedCPU?.socket) {
+                filtered = motherboards.filter(mb => mb.socket === selectedCPU.socket);
+                console.log(`📊 Level 3 (socket only): Found ${filtered.length} motherboards`);
+            }
+            
+            // Level 4: Show all motherboards if no socket matches
+            if (filtered.length === 0) {
+                console.warn('⚠️ No socket matches found, showing all motherboards sorted by price');
+                filtered = motherboards.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+            }
+            
+            // FIXED: Always ensure we have multiple options (up to 6 instead of 4)
+            const maxOptions = Math.min(6, filtered.length);
+            
+            // Score and rank with size preference priority
+            const scoredMBs = filtered.map(mb => {
+                let scoreData = calculateComponentScore(mb, targetMBPrice, performanceTier, remainingBudget);
+                
+                // FIXED: MAJOR bonus for socket compatibility
+                if (selectedCPU?.socket && mb.socket === selectedCPU.socket) {
+                    scoreData.score += 2.0; // Huge bonus for socket match
+                    scoreData.details += ' +Socket';
+                }
+                
+                // FIXED: BIG bonus for size preference match
+                if (preferredFormFactors && mb.form_factor) {
+                    const sizeMatch = preferredFormFactors.some(ff => 
+                        mb.form_factor.toLowerCase().includes(ff.toLowerCase())
+                    );
+                    if (sizeMatch) {
+                        scoreData.score += 1.0; // Big bonus for size match
+                        scoreData.details += ` +${choices.size}`;
+                    }
+                }
+                
+                // Check type field for size as well
+                if (preferredFormFactors && mb.type && !scoreData.details.includes(`+${choices.size}`)) {
+                    const sizeMatch = preferredFormFactors.some(ff => 
+                        mb.type.toLowerCase().includes(ff.toLowerCase())
+                    );
+                    if (sizeMatch) {
+                        scoreData.score += 1.0;
+                        scoreData.details += ` +${choices.size}`;
+                    }
+                }
+                
+                // Bonus for matching tier
+                if (mb.performance_tier === performanceTier) {
+                    scoreData.score += 0.2;
+                    scoreData.details += ' +Tier';
+                }
+                
+                // Bonus for WiFi in mid-tier and above
+                if (['mid', 'high', 'enthusiast'].includes(performanceTier) && mb.wifi === true) {
+                    scoreData.score += 0.1;
+                    scoreData.details += ' +WiFi';
+                }
+                
+                // Preference for DDR5 in higher tiers
+                if (['high', 'enthusiast'].includes(performanceTier) && mb.memory_support?.includes('DDR5')) {
+                    scoreData.score += 0.15;
+                    scoreData.details += ' +DDR5';
+                }
+                
+                // FIXED: Price penalty for going way over budget (but don't exclude)
+                const mbPrice = parsePrice(mb.price);
+                if (mbPrice > budgetAllocation.motherboard.max * 2) {
+                    scoreData.score -= 0.2; // Smaller penalty
+                    scoreData.details += ' -OverBudget';
+                }
+                
+                return { ...mb, scoreData };
+            }).sort((a, b) => b.scoreData.score - a.scoreData.score);
+
+            console.log(`✅ Found ${scoredMBs.length} total motherboards, showing top ${maxOptions}`);
+            console.log('🏆 Top MB scores:', scoredMBs.slice(0, Math.min(3, maxOptions)).map(mb => 
+                `${mb.brand} ${mb.model}: ${formatPrice(mb.price)} (${mb.scoreData.details})`));
+            
+            // FIXED: Show more options and ensure at least something appears
+            const finalSelection = scoredMBs.slice(0, maxOptions);
+            if (finalSelection.length === 0) {
+                console.error('❌ No motherboards available in componentData');
+                // Show error with fallback data
+                const fallbackMB = [{
+                    brand: "Generic", 
+                    model: "Compatible Motherboard", 
+                    price: budgetAllocation.motherboard.target,
+                    socket: selectedCPU?.socket || "Unknown",
+                    chipset: "Compatible",
+                    performance_tier: performanceTier,
+                    form_factor: choices.size === 'small' ? 'Mini-ITX' : choices.size === 'large' ? 'ATX' : 'Micro-ATX'
+                }];
+                renderFilteredComponents('motherboardOptions', fallbackMB, 'motherboard');
+            } else {
+                renderFilteredComponents('motherboardOptions', finalSelection, 'motherboard');
+            }
+        }
+
+        // FIXED: Enhanced case filtering with proper size preference support
+        function loadCaseRecommendations(choices, remainingBudget = null) {
+            const cases = componentData.cases || [];
+            console.log('🔍 Filtering Cases from', cases.length, 'total options');
+            
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            const budgetAllocation = getBudgetAllocation(userBudgetLimit, performanceTier);
+            const targetCasePrice = budgetAllocation.case.target;
+            
+            console.log(`🏠 Case filtering: ${performanceTier} tier, target: ${targetCasePrice}, max: ${budgetAllocation.case.max}`);
+            console.log('💰 Case Budget:', { target: targetCasePrice, max: budgetAllocation.case.max, remaining: remainingBudget });
+            console.log('📏 Size preference:', choices.size);
+            
+            // FIXED: Enhanced size matching for cases
+            const matchesSizePreference = (caseItem, sizePreference) => {
+                const caseType = caseItem.type?.toLowerCase() || '';
+                const caseName = caseItem.model?.toLowerCase() || '';
+                const caseBrand = caseItem.brand?.toLowerCase() || '';
+                const fullText = `${caseType} ${caseName} ${caseBrand}`;
+                
+                switch(sizePreference) {
+                    case 'small':
+                        return caseType.includes('mini') || 
+                               caseType.includes('itx') || 
+                               caseType.includes('compact') ||
+                               caseType.includes('small') ||
+                               fullText.includes('mini') ||
+                               fullText.includes('itx') ||
+                               caseItem.size_preference === 'small';
+                    
+                    case 'medium':
+                        return caseType.includes('mid') || 
+                               caseType.includes('tower') ||
+                               caseType.includes('atx') ||
+                               caseType.includes('micro') ||
+                               (!caseType.includes('mini') && !caseType.includes('full')) ||
+                               caseItem.size_preference === 'medium';
+                    
+                    case 'large':
+                        return caseType.includes('full') || 
+                               caseType.includes('e-atx') ||
+                               caseType.includes('extended') ||
+                               caseType.includes('big') ||
+                               caseType.includes('xl') ||
+                               caseItem.size_preference === 'large';
+                    
+                    default:
+                        return true; // No size filtering
+                }
+            };
+            
+            // Level 1: Try with size preference and lenient budget
+            let filtered = cases.filter(caseItem => {
+                const casePrice = parsePrice(caseItem.price);
+                
+                // More lenient budget limits for cases
+                if (casePrice > budgetAllocation.case.max * 3) return false; // Allow 3x over budget
+                if (remainingBudget != null && casePrice > Math.max(50, remainingBudget * 0.3)) return false;
+                
+                // Size preference match
+                return matchesSizePreference(caseItem, choices.size);
+            });
+            
+            console.log(`📊 Level 1 (size + 3x budget): Found ${filtered.length} cases`);
+
+            // Level 2: If no matches with size preference, ignore budget but keep size
+            if (filtered.length === 0) {
+                console.log('⚠️ No cases matching size preference within budget, ignoring budget...');
+                filtered = cases.filter(caseItem => matchesSizePreference(caseItem, choices.size));
+                console.log(`📊 Level 2 (size only): Found ${filtered.length} cases`);
+            }
+
+            // Level 3: If still no matches, show all within very lenient budget
+            if (filtered.length === 0) {
+                console.log('⚠️ No cases matching size preference, showing all budget options');
+                filtered = cases.filter(caseItem => {
+                    const casePrice = parsePrice(caseItem.price);
+                    return casePrice <= budgetAllocation.case.max * 4; // Very lenient for cases
+                });
+                console.log(`📊 Level 3 (4x budget): Found ${filtered.length} cases`);
+            }
+
+            // Level 4: Final fallback - show cheapest cases
+            if (filtered.length === 0) {
+                console.log('⚠️ No cases within any budget, showing cheapest options');
+                filtered = cases.sort((a, b) => parsePrice(a.price) - parsePrice(b.price)).slice(0, 6);
+            }
+            
+            // Score and rank with size preference priority
+            const scoredCases = filtered.map(caseItem => {
+                let scoreData = calculateComponentScore(caseItem, targetCasePrice, performanceTier, remainingBudget);
+                
+                // FIXED: BIG bonus for matching size preference
+                if (matchesSizePreference(caseItem, choices.size)) {
+                    scoreData.score += 1.0; // Major bonus for size match
+                    scoreData.details += ` +${choices.size}`;
+                }
+                
+                // Bonus for tempered glass in higher tiers
+                if (['high', 'enthusiast'].includes(performanceTier) && 
+                    caseItem.features?.includes('Tempered Glass')) {
+                    scoreData.score += 0.2;
+                    scoreData.details += ' +TG';
+                }
+                
+                // Bonus for RGB features if aesthetics preference matches
+                if (choices.aesthetics === 'rgb' && caseItem.features?.includes('RGB')) {
+                    scoreData.score += 0.3;
+                    scoreData.details += ' +RGB';
+                }
+                
+                // Bonus for white cases if white aesthetic chosen
+                if (choices.aesthetics === 'white' && 
+                    (caseItem.model?.toLowerCase().includes('white') || 
+                     caseItem.features?.includes('White'))) {
+                    scoreData.score += 0.3;
+                    scoreData.details += ' +White';
+                }
+                
+                // FIXED: Motherboard compatibility bonus
+                if (caseItem.motherboard_support) {
+                    const selectedMB = selectedComponents.motherboard;
+                    if (selectedMB?.form_factor) {
+                        const supports = Array.isArray(caseItem.motherboard_support) ? 
+                            caseItem.motherboard_support : [caseItem.motherboard_support];
+                        const compatible = supports.some(support => 
+                            selectedMB.form_factor.toLowerCase().includes(support.toLowerCase()) ||
+                            support.toLowerCase().includes(selectedMB.form_factor.toLowerCase())
+                        );
+                        if (compatible) {
+                            scoreData.score += 0.5;
+                            scoreData.details += ' +MBCompat';
+                        }
+                    }
+                }
+                
+                return { ...caseItem, scoreData };
+            }).sort((a, b) => b.scoreData.score - a.scoreData.score);
+            
+            console.log(`✅ Found ${scoredCases.length} compatible cases`);
+            console.log('🏆 Top Case scores:', scoredCases.slice(0, 3).map(caseItem => 
+                `${caseItem.brand} ${caseItem.model}: ${formatPrice(caseItem.price)} (${caseItem.scoreData.details})`));
+            
+            // Show up to 6 case options
+            renderFilteredComponents('caseOptions', scoredCases.slice(0, 6), 'case');
+        }
+
+        // Build type detection
+        function getBuildTypeFromChoices(choices) {
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            
+            const buildTypes = {
+                budget: {
+                    general: 'Budget Office Build',
+                    gaming: 'Entry Gaming Build',
+                    streaming: 'Budget Content Creation',
+                    workstation: 'Entry Workstation'
+                },
+                mid: {
+                    general: 'Balanced All-Purpose Build', 
+                    gaming: 'Modern Gaming Build',
+                    streaming: 'Content Creator Build',
+                    workstation: 'Professional Workstation'
+                },
+                high: {
+                    general: 'High-Performance Build',
+                    gaming: 'High-End Gaming Build',
+                    streaming: 'Professional Streaming Build',
+                    workstation: 'High-End Workstation'
+                },
+                enthusiast: {
+                    general: 'Enthusiast Build',
+                    gaming: 'Enthusiast Gaming Build',
+                    streaming: 'Elite Content Creation',
+                    workstation: 'Elite Workstation'
+                }
+            };
+
+            return buildTypes[performanceTier]?.[choices.usage] || 'Custom Build';
+        }
+
+        function showBuildProfile(choices) {
+            const performanceTier = getPerformanceTierFromTarget(choices.resolution, choices.framerate, choices.usage);
+            const userBudgetLimit = getUserBudgetLimit(choices.budget);
+            
+            const profileDetails = document.getElementById('profileDetails');
+            profileDetails.innerHTML = `
+                <div class="profile-item">
+                    <div class="profile-label">Performance Tier</div>
+                    <div class="profile-value">${performanceTier.charAt(0).toUpperCase() + performanceTier.slice(1)}</div>
+                </div>
+                <div class="profile-item">
+                    <div class="profile-label">Primary Use</div>
+                    <div class="profile-value">${getUsageDescription(choices.usage)}</div>
+                </div>
+                <div class="profile-item">
+                    <div class="profile-label">Target Resolution</div>
+                    <div class="profile-value">${choices.resolution}</div>
+                </div>
+                <div class="profile-item">
+                    <div class="profile-label">Target FPS</div>
+                    <div class="profile-value">${choices.framerate}</div>
+                </div>
+                <div class="profile-item">
+                    <div class="profile-label">Total Budget</div>
+                    <div class="profile-value">${formatPrice(userBudgetLimit)}</div>
+                </div>
+                <div class="profile-item">
+                    <div class="profile-label">Size Preference</div>
+                    <div class="profile-value">${getSizeDescription(choices.size)}</div>
+                </div>
+            `;
+        }
+
+        function getUsageDescription(usage) {
+            const descriptions = {
+                'gaming': 'Gaming',
+                'streaming': 'Streaming & Content Creation',
+                'workstation': 'Professional Workstation',
+                'general': 'General Use & Productivity'
+            };
+            return descriptions[usage] || usage;
+        }
+
+        // FIXED: Budget range text that matches the UI choices
+        function getBudgetRangeText(budget) {
+            const ranges = {
+                'under600': 'Under $800',
+                '600-1000': '$800-$1200',
+                '1000-1500': '$1200-$1600',
+                'over1500': '$1600+'
+            };
+            return ranges[budget] || budget;
+        }
+
+        function getSizeDescription(size) {
+            const descriptions = {
+                'small': 'Compact & Space-Saving',
+                'medium': 'Balanced Size',
+                'large': 'Full-Size with Max Expandability'
+            };
+            return descriptions[size] || size;
+        }
+
+        // Learning Page Logic
+        let learnedComponents = new Set();
+        const totalComponents = 8;
+        const progressBar = document.getElementById('progressBar');
+        const readyButton = document.getElementById('readyButton');
+        const buttonText = document.getElementById('buttonText');
+        const completionMessage = document.getElementById('completionMessage');
+
+        // Handle component card clicks
+        document.querySelectorAll('.component-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const component = this.dataset.component;
+                
+                if (!learnedComponents.has(component)) {
+                    learnedComponents.add(component);
+                    this.classList.add('learned');
+                    updateProgress();
+                    
+                    // Add a little celebration effect
+                    this.style.animation = 'pulse 0.6s ease';
+                    setTimeout(() => {
+                        this.style.animation = '';
+                    }, 600);
+                }
+            });
+
+            // Add hover effects
+            card.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('learned')) {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                }
+            });
+
+            card.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('learned')) {
+                    this.style.transform = '';
+                }
+            });
+        });
+
+        function updateProgress() {
+            const progress = (learnedComponents.size / totalComponents) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Update button text based on progress
+            const remaining = totalComponents - learnedComponents.size;
+            
+            if (remaining > 0) {
+                buttonText.textContent = `📚 ${remaining} more to go! Keep learning!`;
+            } else {
+                buttonText.textContent = '🚀 Ready to Build? Go to the Wizard!';
+                readyButton.classList.add('active');
+                readyButton.classList.add('pulse');
+                
+                // Show completion message
+                completionMessage.classList.add('show');
+                
+                // Enable the button click
+                readyButton.onclick = function() {
+                    // Store that intro is completed
+                    localStorage.setItem('pcBuilderIntroCompleted', 'true');
+                    
+                    // Navigate to wizard
+                    showPage('wizard');
+                };
+            }
+        }
+
+        // Check if user has already completed intro
+        if (localStorage.getItem('pcBuilderIntroCompleted')) {
+            // Auto-complete all cards for returning users
+            document.querySelectorAll('.component-card').forEach(card => {
+                const component = card.dataset.component;
+                learnedComponents.add(component);
+                card.classList.add('learned');
+            });
+            updateProgress();
+        } else {
+            // For new users, ensure all cards start unchecked
+            document.querySelectorAll('.component-card').forEach(card => {
+                card.classList.remove('learned');
+            });
+            learnedComponents.clear();
+            updateProgress();
+        }
+
+        // Add some initial interactivity hints for learning page
+        setTimeout(() => {
+            if (!localStorage.getItem('pcBuilderIntroCompleted')) {
+                const firstCard = document.querySelector('.component-card');
+                firstCard.style.animation = 'pulse 1s ease';
+                setTimeout(() => {
+                    firstCard.style.animation = '';
+                }, 1000);
+            }
+        }, 2000);
+
+        // Wizard Page Logic
+        const userChoices = {};
+        const requiredQuestions = ['usage', 'resolution', 'framerate', 'budget', 'size', 'aesthetics'];
+        let currentQuestion = 1;
+        
+        // Build requirement logic
+        const buildRequirements = {
+            // Performance requirements matrix [resolution, framerate] -> min budget category
+            performance: {
+                '1080p_30fps': 'under600',
+                '1080p_60fps': '600-1000',
+                '1080p_144fps': '1000-1500',
+                '1440p_30fps': '600-1000',
+                '1440p_60fps': '1000-1500',
+                '1440p_144fps': 'over1500',
+                '4k_30fps': '1000-1500',
+                '4k_60fps': 'over1500',
+                '4k_144fps': 'over1500' // Extreme requirement
+            },
+            
+            // Usage type adjustments
+            usageMultiplier: {
+                'general': 0.7,     // Less demanding
+                'gaming': 1.0,      // Baseline
+                'streaming': 1.2,   // Needs extra CPU power
+                'workstation': 1.5  // Much more demanding
+            }
+        };
+
+        // Handle option selection
+        document.addEventListener('click', function(e) {
+            // Ensure e.target exists and is an Element
+            if (!e.target || !e.target.closest) return;
+            
+            const card = e.target.closest('.option-card');
+            if (card && !card.classList.contains('disabled')) {
+                const question = card.dataset.question;
+                const value = card.dataset.value;
+
+                // Only proceed if this is a wizard question
+                if (!question) return;
+
+                // Remove selection from other cards in the same question
+                document.querySelectorAll(`[data-question="${question}"]`).forEach(c => {
+                    c.classList.remove('selected');
+                });
+
+                // Select the clicked card
+                card.classList.add('selected');
+
+                // Store the choice
+                userChoices[question] = value;
+
+                // Update the wizard based on new selection
+                updateWizard();
+
+                console.log('Current choices:', userChoices);
+            }
+        });
+
+        function updateWizard() {
+            // Clear and reset all badges when recalculating
+            clearAllBadges();
+            
+            // Enable next question and update hints based on current selections
+            if (userChoices.usage && currentQuestion === 1) {
+                enableQuestion(2);
+                updateResolutionHints();
+                currentQuestion = Math.max(currentQuestion, 2);
+            }
+            
+            if (userChoices.resolution && currentQuestion <= 2) {
+                enableQuestion(3);
+                updateFramerateHints();
+                currentQuestion = Math.max(currentQuestion, 3);
+            }
+            
+            if (userChoices.framerate && currentQuestion <= 3) {
+                enableQuestion(4);
+                updateBudgetRecommendations();
+                currentQuestion = Math.max(currentQuestion, 4);
+            }
+            
+            if (userChoices.budget && currentQuestion <= 4) {
+                enableQuestion(5);
+                updateSizeHints();
+                currentQuestion = Math.max(currentQuestion, 5);
+            }
+            
+            if (userChoices.size && currentQuestion <= 5) {
+                enableQuestion(6);
+                currentQuestion = Math.max(currentQuestion, 6);
+            }
+
+            // Re-update all hints if selections exist (for when users change previous answers)
+            if (userChoices.usage) updateResolutionHints();
+            if (userChoices.resolution) updateFramerateHints();
+            if (userChoices.framerate) updateBudgetRecommendations();
+            if (userChoices.size) updateSizeHints();
+
+            // Update build preview
+            updateBuildPreview();
+            
+            // Check if ready to submit
+            updateSubmitButton();
+        }
+
+        function clearAllBadges() {
+            // Clear all recommended and warning badges
+            document.querySelectorAll('.recommended-badge, .warning-badge').forEach(badge => {
+                badge.style.display = 'none';
+            });
+        }
+
+        function enableQuestion(questionNum) {
+            const question = document.getElementById(`question${questionNum}`);
+            question.classList.remove('disabled');
+            
+            // Smooth scroll to next question
+            setTimeout(() => {
+                question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+
+        function updateResolutionHints() {
+            const hint = document.getElementById('resolutionHint');
+            let message = '';
+            
+            switch(userChoices.usage) {
+                case 'general':
+                    message = '💡 For general use, 1080p is perfect and very affordable!';
+                    addRecommendedBadge('resolution', '1080p');
+                    break;
+                case 'gaming':
+                    message = '💡 1080p offers great performance, 1440p is the sweet spot for modern gaming!';
+                    addRecommendedBadge('resolution', '1440p');
+                    break;
+                case 'streaming':
+                    message = '💡 1080p is recommended for streaming to keep CPU load manageable.';
+                    addRecommendedBadge('resolution', '1080p');
+                    break;
+                case 'workstation':
+                    message = '💡 Higher resolution means more screen space for productivity work!';
+                    addRecommendedBadge('resolution', '1440p');
+                    break;
+            }
+            
+            hint.textContent = message;
+            hint.classList.add('show');
+        }
+
+        function updateFramerateHints() {
+            const hint = document.getElementById('framerateHint');
+            let message = '';
+            
+            if (userChoices.usage === 'general') {
+                message = '💡 30-60 FPS is perfectly smooth for general computing tasks.';
+            } else if (userChoices.resolution === '4k') {
+                message = '💡 4K resolution is demanding - 30-60 FPS is realistic for most budgets.';
+            } else if (userChoices.usage === 'gaming') {
+                message = '💡 60 FPS feels great, 144+ FPS gives competitive advantage but costs more.';
+            } else {
+                message = '💡 Higher FPS feels smoother but requires more powerful (expensive) hardware.';
+            }
+            
+            hint.textContent = message;
+            hint.classList.add('show');
+        }
+
+        function updateBudgetRecommendations() {
+            const hint = document.getElementById('budgetHint');
+            
+            // Calculate minimum recommended budget
+            const perfKey = `${userChoices.resolution}_${userChoices.framerate}`;
+            const baseBudget = buildRequirements.performance[perfKey];
+            const usageMultiplier = buildRequirements.usageMultiplier[userChoices.usage];
+            
+            // Update budget card recommendations and warnings
+            updateBudgetCards(perfKey, usageMultiplier);
+            
+            let message = '';
+            if (userChoices.resolution === '4k' || userChoices.framerate === '144fps') {
+                message = '💡 Your performance goals require a higher budget for powerful components.';
+            } else if (userChoices.usage === 'workstation') {
+                message = '💡 Workstation builds need extra budget for professional-grade components.';
+            } else if (userChoices.usage === 'general') {
+                message = '💡 Great news! General use doesn\'t require expensive gaming components.';
+            } else {
+                message = '💡 Based on your goals, here are realistic budget ranges:';
+            }
+            
+            hint.textContent = message;
+            hint.classList.add('show');
+        }
+
+        function updateBudgetCards(perfKey, usageMultiplier) {
+            const budgetCards = document.querySelectorAll('[data-question="budget"]');
+            
+            // Budget order for comparison
+            const budgetOrder = ['under600', '600-1000', '1000-1500', 'over1500'];
+            const minBudgetIndex = budgetOrder.indexOf(buildRequirements.performance[perfKey]);
+            
+            budgetCards.forEach((card, index) => {
+                // Reset all cards to default state first
+                card.classList.remove('disabled');
+                
+                // Hide all badges first
+                const recommendedBadge = card.querySelector('.recommended-badge');
+                const warningBadge = card.querySelector('.warning-badge');
+                if (recommendedBadge) recommendedBadge.style.display = 'none';
+                if (warningBadge) warningBadge.style.display = 'none';
+                
+                // Adjust minimum budget index for usage type
+                let adjustedMinIndex = minBudgetIndex;
+                if (usageMultiplier > 1.2) adjustedMinIndex = Math.min(adjustedMinIndex + 1, 3);
+                if (usageMultiplier < 0.8) adjustedMinIndex = Math.max(adjustedMinIndex - 1, 0);
+                
+                if (index < adjustedMinIndex) {
+                    // Budget too low
+                    card.classList.add('disabled');
+                    if (warningBadge) {
+                        warningBadge.style.display = 'block';
+                    }
+                } else if (index === adjustedMinIndex || index === adjustedMinIndex + 1) {
+                    // Recommended budget range
+                    if (recommendedBadge) {
+                        recommendedBadge.style.display = 'block';
+                    }
+                }
+            });
+        }
+
+        function updateSizeHints() {
+            const hint = document.getElementById('sizeHint');
+            let message = '';
+            
+            if (userChoices.budget === 'over1500') {
+                message = '💡 With your budget, any size works - larger cases offer better cooling for high-end parts.';
+            } else if (userChoices.usage === 'workstation') {
+                message = '💡 Workstations benefit from larger cases for better airflow and expansion options.';
+            } else {
+                message = '💡 Medium cases offer the best balance of size and expandability for most builds.';
+                addRecommendedBadge('size', 'medium');
+            }
+            
+            hint.textContent = message;
+            hint.classList.add('show');
+        }
+
+        function addRecommendedBadge(question, value) {
+            const card = document.querySelector(`[data-question="${question}"][data-value="${value}"]`);
+            if (card && card.querySelector('.recommended-badge')) {
+                card.querySelector('.recommended-badge').style.display = 'block';
+            }
+        }
+
+        function updateBuildPreview() {
+            if (Object.keys(userChoices).length >= 3) {
+                const preview = document.getElementById('buildPreview');
+                const details = document.getElementById('buildDetails');
+                const priceRange = document.getElementById('priceRange');
+                
+                // Generate build profile
+                let buildType = getBuildType();
+                let estimatedPrice = getEstimatedPrice();
+                
+                details.innerHTML = `
+                    <li><strong>Build Type:</strong> ${buildType}</li>
+                    <li><strong>Target:</strong> ${userChoices.resolution || 'TBD'} at ${userChoices.framerate || 'TBD'}</li>
+                    <li><strong>Primary Use:</strong> ${getUsageDescription()}</li>
+                    ${userChoices.size ? `<li><strong>Size:</strong> ${getSizeDescription()}</li>` : ''}
+                    ${userChoices.budget ? `<li><strong>Budget:</strong> ${getBudgetRangeText(userChoices.budget)}</li>` : ''}
+                `;
+                
+                priceRange.textContent = `Estimated Total: ${estimatedPrice}`;
+                
+                preview.classList.add('show');
+            }
+        }
+
+        function getBuildType() {
+            const usage = userChoices.usage;
+            const resolution = userChoices.resolution;
+            const framerate = userChoices.framerate;
+            
+            if (usage === 'general') return 'Budget Office Build';
+            if (usage === 'workstation') return 'Professional Workstation';
+            if (resolution === '4k') return 'High-End Gaming Build';
+            if (framerate === '144fps') return 'Competitive Gaming Build';
+            if (resolution === '1440p') return 'Modern Gaming Build';
+            return 'Entry Gaming Build';
+        }
+
+        function getUsageDescription() {
+            const descriptions = {
+                'gaming': 'Gaming & Entertainment',
+                'streaming': 'Gaming + Content Creation',
+                'workstation': 'Professional Work & Productivity',
+                'general': 'Web Browsing & Basic Tasks'
+            };
+            return descriptions[userChoices.usage] || userChoices.usage;
+        }
+
+        function getSizeDescription() {
+            const descriptions = {
+                'small': 'Compact & Space-Saving',
+                'medium': 'Balanced Size',
+                'large': 'Full-Size with Max Expandability'
+            };
+            return descriptions[userChoices.size] || userChoices.size;
+        }
+
+        function getEstimatedPrice() {
+            const budgetRanges = {
+                'under600': '$600-$800',
+                '600-1000': '$800-$1,200', 
+                '1000-1500': '$1,200-$1,600',
+                'over1500': '$1,600-$2,500'
+            };
+            
+            const userChoice = userChoices.budget;
+            return budgetRanges[userChoice] || formatPrice(getUserBudgetLimit(userChoice));
+        }
+
+        function updateSubmitButton() {
+            const submitButton = document.getElementById('submitButton');
+            const allAnswered = requiredQuestions.every(q => userChoices[q]);
+
+            submitButton.disabled = !allAnswered;
+            
+            if (allAnswered) {
+                submitButton.style.opacity = '1';
+                submitButton.style.cursor = 'pointer';
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('submitButton').addEventListener('click', async function() {
+            if (Object.keys(userChoices).length === requiredQuestions.length) {
+                // Store choices in localStorage for next page
+                localStorage.setItem('pcBuilderChoices', JSON.stringify(userChoices));
+                
+                // Show components nav button and navigate to components page
+                document.getElementById('componentsBtn').style.display = 'block';
+                await showPage('components');
+            }
+        });
+
+        // Component Selection Page Logic
+        async function loadComponentRecommendations() {
+            const choices = JSON.parse(localStorage.getItem('pcBuilderChoices'));
+            if (!choices) return;
+
+            console.log('🎯 Starting component recommendations for:', choices);
+
+            // Show loading indicators
+            showLoadingIndicators();
+
+            try {
+                // Load component data first (if not already loaded)
+                if (!componentData || Object.keys(componentData).length === 0) {
+                    console.log('Component data not loaded, loading now...');
+                    const loadSuccess = await loadComponentData();
+                    if (!loadSuccess) {
+                        // If loading failed, show error and stop
+                        showLoadingError();
+                        return;
+                    }
+                }
+
+                // Update page header
+                const buildType = getBuildTypeFromChoices(choices);
+                document.getElementById('buildTypeTitle').textContent = buildType;
+                document.getElementById('buildSummary').textContent = `Curated components for ${choices.resolution} ${choices.framerate} ${choices.usage}`;
+
+                // Show build profile
+                showBuildProfile(choices);
+
+                // Load filtered component recommendations
+                loadFilteredRecommendations(choices);
+
+                // Initialize totals
+                updateTotals();
+                
+                console.log('✅ Component recommendations loaded successfully!');
+                
+            } catch (error) {
+                console.error('❌ Error in loadComponentRecommendations:', error);
+                showLoadingError(error.message);
+            }
+        }
+
+        function showLoadingError(errorMessage = 'Failed to load components') {
+            const errorHTML = `
+                <div class="no-components">
+                    <p>❌ ${errorMessage}</p>
+                    <small>Check the browser console for detailed error information.</small>
+                    <br><br>
+                    <button onclick="location.reload()" style="padding: 8px 16px; border-radius: 8px; border: none; background: #ff6b35; color: white; cursor: pointer;">
+                        🔄 Retry
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('cpuOptions').innerHTML = errorHTML;
+            document.getElementById('gpuOptions').innerHTML = errorHTML;
+            document.getElementById('ramOptions').innerHTML = errorHTML;
+            document.getElementById('storageOptions').innerHTML = errorHTML;
+            document.getElementById('psuOptions').innerHTML = errorHTML;
+            document.getElementById('motherboardOptions').innerHTML = errorHTML;
+            document.getElementById('caseOptions').innerHTML = errorHTML;
+            document.getElementById('coolerOptions').innerHTML = errorHTML;
+        }
+
+        function showLoadingIndicators() {
+            const loadingHTML = `
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    Loading components...
+                </div>
+            `;
+            
+            document.getElementById('cpuOptions').innerHTML = loadingHTML;
+            document.getElementById('gpuOptions').innerHTML = loadingHTML;
+            document.getElementById('ramOptions').innerHTML = loadingHTML;
+            document.getElementById('storageOptions').innerHTML = loadingHTML;
+            document.getElementById('psuOptions').innerHTML = loadingHTML;
+            document.getElementById('motherboardOptions').innerHTML = loadingHTML;
+            document.getElementById('caseOptions').innerHTML = loadingHTML;
+            document.getElementById('coolerOptions').innerHTML = loadingHTML;
+        }
+
+        // Component info modal
+        function showComponentInfo(componentType) {
+            const modal = document.getElementById('modalOverlay');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+
+            const componentInfo = {
+                cpu: {
+                    title: "🧠 Processor (CPU)",
+                    content: `
+                        <p><strong>What it does:</strong> The CPU is your computer's brain that handles all the calculations and controls other components.</p>
+                        <p><strong>What to look for:</strong></p>
+                        <ul>
+                            <li><strong>Cores & Threads:</strong> More cores = better multitasking</li>
+                            <li><strong>Clock Speed:</strong> Higher GHz = faster single-task performance</li>
+                            <li><strong>Socket Type:</strong> Must match your motherboard</li>
+                        </ul>
+                        <p><strong>Gaming:</strong> 6-8 cores is perfect for most games<br>
+                        <strong>Workstation:</strong> 12+ cores for video editing and rendering</p>
+                    `
+                },
+                gpu: {
+                    title: "🎨 Graphics Card (GPU)",
+                    content: `
+                        <p><strong>What it does:</strong> Creates all the images you see on screen. Essential for gaming and video editing.</p>
+                        <p><strong>What to look for:</strong></p>
+                        <ul>
+                            <li><strong>VRAM:</strong> Video memory - more is better for high resolution</li>
+                            <li><strong>Performance Level:</strong> Must match your resolution/FPS goals</li>
+                            <li><strong>Power Usage:</strong> Higher performance = more electricity</li>
+                        </ul>
+                        <p><strong>1080p:</strong> 8GB VRAM is plenty<br>
+                        <strong>1440p:</strong> 12GB+ VRAM recommended<br>
+                        <strong>4K:</strong> 16GB+ VRAM for smooth gaming</p>
+                    `
+                },
+                ram: {
+                    title: "⚡ Memory (RAM)",
+                    content: `
+                        <p><strong>What it does:</strong> Temporarily stores data your CPU needs right now for lightning-fast access.</p>
+                        <p><strong>What to look for:</strong></p>
+                        <ul>
+                            <li><strong>Capacity:</strong> 16GB for gaming, 32GB+ for workstations</li>
+                            <li><strong>Speed:</strong> DDR4-3200 or DDR5-5600 are good choices</li>
+                            <li><strong>Dual Channel:</strong> Always get 2 sticks (2x8GB vs 1x16GB)</li>
+                        </ul>
+                        <p><strong>Think of it like:</strong> Your desk workspace - the bigger it is, the more projects you can work on simultaneously without having to put things away.</p>
+                    `
+                },
+                storage: {
+                    title: "💾 Storage",
+                    content: `
+                        <p><strong>What it does:</strong> Permanently stores all your files, games, and programs.</p>
+                        <p><strong>Types:</strong></p>
+                        <ul>
+                            <li><strong>SSD (Recommended):</strong> Fast, silent, but more expensive</li>
+                            <li><strong>HDD:</strong> Slower but cheap for large files</li>
+                            <li><strong>NVMe SSD:</strong> Fastest option, plugs directly into motherboard</li>
+                        </ul>
+                        <p><strong>How much:</strong> 500GB minimum, 1TB+ recommended for gaming<br>
+                        <strong>Pro tip:</strong> Get SSD for your main drive, add HDD later for extra storage</p>
+                    `
+                },
+                motherboard: {
+                    title: "🌐 Motherboard",
+                    content: `
+                        <p><strong>What it does:</strong> Connects all your components together like a nervous system.</p>
+                        <p><strong>What to look for:</strong></p>
+                        <ul>
+                            <li><strong>CPU Socket:</strong> Must match your processor</li>
+                            <li><strong>RAM Support:</strong> DDR4 vs DDR5</li>
+                            <li><strong>Expansion Slots:</strong> PCIe slots for graphics cards</li>
+                            <li><strong>Built-in Features:</strong> WiFi, Bluetooth, USB ports</li>
+                        </ul>
+                        <p><strong>Size matters:</strong> ATX (full size), Micro-ATX (smaller), Mini-ITX (tiny)</p>
+                    `
+                },
+                psu: {
+                    title: "🔌 Power Supply (PSU)",
+                    content: `
+                        <p><strong>What it does:</strong> Converts wall power into clean electricity for your components.</p>
+                        <p><strong>What to look for:</strong></p>
+                        <ul>
+                            <li><strong>Wattage:</strong> Must exceed your total system power draw</li>
+                            <li><strong>Efficiency:</strong> 80+ Bronze minimum, Gold preferred</li>
+                            <li><strong>Modular:</strong> Removable cables for cleaner builds</li>
+                        </ul>
+                        <p><strong>Rule of thumb:</strong> Calculate your system power, then add 20% headroom<br>
+                        <strong>Don't cheap out:</strong> A bad PSU can damage other components</p>
+                    `
+                },
+                case: {
+                    title: "🏠 PC Case",
+                    content: `
+                        <p><strong>What it does:</strong> Houses and protects all your components while providing airflow.</p>
+                        <p><strong>What to look for:</strong></p>
+                        <ul>
+                            <li><strong>Size:</strong> Must fit your motherboard and graphics card</li>
+                            <li><strong>Airflow:</strong> Mesh front panels are better than solid</li>
+                            <li><strong>Cable Management:</strong> Space behind motherboard for clean builds</li>
+                            <li><strong>Front I/O:</strong> USB ports, headphone jack accessibility</li>
+                        </ul>
+                        <p><strong>Sizes:</strong> Mini-ITX (compact), Mid-tower (most popular), Full-tower (massive)</p>
+                    `
+                },
+                cooler: {
+                    title: "❄️ CPU Cooler",
+                    content: `
+                        <p><strong>What it does:</strong> Keeps your CPU from overheating by dissipating heat generated during operation.</p>
+                        <p><strong>Types:</strong></p>
+                        <ul>
+                            <li><strong>Air Coolers:</strong> Use fans and heatsinks - reliable, affordable, easy maintenance</li>
+                            <li><strong>AIO Liquid Coolers:</strong> Use liquid cooling loops - better cooling, quieter, but more complex</li>
+                        </ul>
+                        <p><strong>What to look for:</strong></p>
+                        <ul>
+                            <li><strong>Socket Compatibility:</strong> Must support your CPU's socket type</li>
+                            <li><strong>TDP Rating:</strong> Must handle your CPU's heat output (watts)</li>
+                            <li><strong>Case Clearance:</strong> Must fit inside your case (height for air, radiator space for liquid)</li>
+                        </ul>
+                        <p><strong>Performance:</strong> Better cooling allows CPU to maintain higher speeds for longer periods</p>
+                    `
+                }
+            };
+
+            const info = componentInfo[componentType];
+            if (info) {
+                title.textContent = info.title;
+                body.innerHTML = info.content;
+                modal.classList.add('show');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('show');
+        }
+
+        // Make functions available globally for onclick handlers
+        window.showComponentInfo = showComponentInfo;
+        window.closeModal = closeModal;
+        window.showPage = showPage;
+        window.filterCpuBrand = filterCpuBrand;
+        window.filterGpuBrand = filterGpuBrand;
+        window.filterCoolerType = filterCoolerType;
+
+        // Finalize build button
+        document.getElementById('finalizeButton').addEventListener('click', function() {
+            if (Object.keys(selectedComponents).length < 7) {
+                alert('Please select all components before finalizing your build!');
+                return;
+            }
+
+            // Calculate final total
+            let finalTotal = 0;
+            Object.values(selectedComponents).forEach(component => {
+                if (component && component.price != null) {
+                    finalTotal += parsePrice(component.price);
+                }
+            });
+
+            const buildSummary = {
+                components: selectedComponents,
+                total: finalTotal,
+                choices: JSON.parse(localStorage.getItem('pcBuilderChoices'))
+            };
+
+            localStorage.setItem('finalizedBuild', JSON.stringify(buildSummary));
+
+            alert(`🎉 Congratulations! Your ${getBuildTypeFromChoices(buildSummary.choices)} is complete!\n\n` +
+                  `Total Cost: ${formatPrice(finalTotal)}\n` +
+                  `Performance Target: ${buildSummary.choices.resolution} at ${buildSummary.choices.framerate}\n\n` +
+                  `Your build has been saved! You can now take this list to order your components.`);
+        });
+
+        // Initialize component data on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Page loaded, initializing component data...');
+            console.log('📍 Current location:', window.location.href);
+            console.log('📁 Expected JSON path: data/cpus.json, data/gpus.json, etc.');
+            
+            try {
+                const loadSuccess = await loadComponentData();
+                if (loadSuccess) {
+                    console.log('✅ Component data initialization successful');
+                    
+                    // Check if we have actual data
+                    const totalComponents = Object.values(componentData).reduce((sum, arr) => sum + arr.length, 0);
+                    if (totalComponents === 0) {
+                        console.warn('⚠️ Component data loaded but all arrays are empty. Using fallback data.');
+                    } else {
+                        console.log(`📊 Total components loaded: ${totalComponents}`);
+                    }
+                } else {
+                    console.log('❌ Component data initialization failed');
+                }
+            } catch (error) {
+                console.error('❌ Error during initialization:', error);
+            }
+            
+            // If components page should be available, enable it
+            if (localStorage.getItem('pcBuilderChoices')) {
+                document.getElementById('componentsBtn').style.display = 'block';
+            }
+        });
+
+        // Debug functions for browser console
+        window.testJSONLoading = async function() {
+            console.log('🧪 Testing JSON file loading...');
+            console.log('📁 Expected directory structure:');
+            console.log('   your-folder/');
+            console.log('   ├── index.html (this file)');
+            console.log('   └── data/');
+            console.log('       ├── cpus.json');
+            console.log('       ├── gpus.json');
+            console.log('       ├── ram.json');
+            console.log('       ├── storage.json');
+            console.log('       ├── psu.json');
+            console.log('       ├── motherboards.json');
+            console.log('       ├── cases.json');
+            console.log('       └── coolers.json');
+            console.log('');
+            
+            const files = ['cpus.json', 'gpus.json', 'ram.json', 'storage.json', 'psu.json', 'motherboards.json', 'cases.json', 'coolers.json'];
+            
+            for (const file of files) {
+                try {
+                    console.log(`Testing data/${file}...`);
+                    const response = await fetch(`data/${file}`);
+                    console.log(`data/${file}: Status ${response.status}`);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(`data/${file}: ✅ ${data.length} items loaded`);
+                    } else {
+                        console.log(`data/${file}: ❌ HTTP ${response.status}`);
+                    }
+                } catch (error) {
+                    console.log(`data/${file}: ❌ ${error.message}`);
+                }
+            }
+            
+            console.log('\n💡 Tip: If all files show 404 errors:');
+            console.log('   1. Make sure you have a "data" folder next to your HTML file');
+            console.log('   2. Make sure all JSON files are inside the data folder');
+            console.log('   3. If opening via file://, consider using a local web server instead');
+            console.log('      (e.g., python -m http.server 8000)');
+            console.log('\n🌐 To start a simple local server:');
+            console.log('   - Python: python -m http.server 8000');
+            console.log('   - Node.js: npx http-server');
+            console.log('   - VS Code: Use Live Server extension');
+            console.log('   Then visit http://localhost:8000 in your browser');
+        };
+
+        window.debugComponents = function() {
+            console.log('Current componentData:', componentData);
+            console.log('LocalStorage choices:', localStorage.getItem('pcBuilderChoices'));
+            console.log('Selected components:', selectedComponents);
+            console.log('Total price:', totalPrice);
+        };
+
+        // Add hover effects for better UX - with more robust error handling
+        function handleHoverEnter(e) {
+            try {
+                if (e.target && typeof e.target.closest === 'function') {
+                    const card = e.target.closest('.option-card');
+                    if (card && !card.classList.contains('selected') && !card.classList.contains('disabled')) {
+                        card.style.transform = 'translateY(-2px)';
+                    }
+                }
+            } catch (error) {
+                console.debug('Hover enter error:', error);
+            }
+        }
+
+        function handleHoverLeave(e) {
+            try {
+                if (e.target && typeof e.target.closest === 'function') {
+                    const card = e.target.closest('.option-card');
+                    if (card && !card.classList.contains('selected') && !card.classList.contains('disabled')) {
+                        card.style.transform = 'translateY(0)';
+                    }
+                }
+            } catch (error) {
+                console.debug('Hover leave error:', error);
+            }
+        }
+
+        document.addEventListener('mouseenter', handleHoverEnter, true);
+        document.addEventListener('mouseleave', handleHoverLeave, true);
+    </script>
+</body>
+</html>
